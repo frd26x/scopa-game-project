@@ -24,14 +24,28 @@
 .card-hand{
   width:100px;
   height: 145px;
+  float: left;
+  margin-left: 2%;
   
   
   
   /* background-position: center !important; */
   background-size: cover !important;
 }
+.ai-show-back{
+  background-image: url("/scopa-game-project/images/bg.jpg") !important;
+}
 
+.hand-ai{
+  position: absolute;
+  left:35%;
+  bottom:70%;
+  width: 30%;
+}
 .hand-player{
+  position: absolute;
+  left:35%;
+  top:70%;
   width: 30%;
 }
 .top-card-deck{
@@ -44,6 +58,19 @@
   background-size: cover !important;
 }
 
+.table{
+  position: absolute;
+  bottom: 39%;
+  left: 30%;
+  width: 50%;
+}
+
+.card-played{
+  position: absolute;
+  bottom: 39%;
+  left: 30%;
+  width: 50%;
+}
 
 
 .deck{
@@ -51,7 +78,7 @@
   height: 145px;
   position: absolute;
   left: 50px;
-  top:100px;
+  top:24%;
 }
 
 
@@ -63,3 +90,4 @@
 body{
   background-color:green;
 }
+
