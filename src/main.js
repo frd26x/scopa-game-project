@@ -52,12 +52,12 @@ $(document).ready(function(){
   game.cards.forEach(function (pic) {
     html += '<div class="card" data-card-name="'+ pic.name +'">';
     // html += '  <div class="back" name="'+ pic.img +'"></div>';
-    html += '  <div class="card deck-card" style="background: url(images/'+ pic.img +') no-repeat"></div>';
+    html += '  <div class="card" style="background: url(images/'+ pic.img +') no-repeat"></div>';
     html += '</div>';
   });
 
-  $('#deck').html(html);
-console.log($('#deck'))
+  $('.deck').html(html);
+console.log($('.deck'))
 
 
   player= new Player("player")
