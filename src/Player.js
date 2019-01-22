@@ -1,56 +1,3 @@
-class Scopa {
-  constructor(cards) {
-    this.cards = cards;
-    this.table = [];
-  }
-  shuffle(array) {
-    var m = array.length,
-      t,
-      i;
-    while (m) {
-      i = Math.floor(Math.random() * m--);
-      t = array[m];
-      array[m] = array[i];
-      array[i] = t;
-    }
-  }
-  giveCard(player) {
-    player.hand.push(this.cards.pop());
-  }
-  putCardsOnTable() {
-    for (var i = 0; i < 4; i++) {
-      this.table.push(this.cards.pop());
-    }
-  }
-
-  howManyDiamonds(cards) {
-    var count = 0
-    cards.forEach((card => {
-      if (card.name.split("")[1] === "D") {
-        count++;
-      }
-    }))
-    return count
-  }
-  //get the total value of the four best prime value
-  checkHighestPrime(cards) {
-    //sort by prime value
-    var sortedCards = cards.sort(function (a, b) {
-      return b.prime - a.prime;
-    });
-    //get first four
-    var firstFour = sortedCards.slice(0, 4)
-    //get total first four
-    var total = firstFour.reduce(function (acc, current) {
-      return acc + current.prime
-    }, 0)
-
-    return total
-  }
-
-
-}
-
 class Player {
   constructor(name) {
     this.name = name;
@@ -100,7 +47,7 @@ class Player {
     //if it's possible to pick a single card you have to, no possible combination
     for (var i = 0; i < table.length; i++) {
       if (table[i].value === cardPlayed.value) {
-        availablePicks.push(table[i]);
+        availablePicks.push([table[i]]);
       }
     }
 
@@ -138,8 +85,9 @@ class Player {
         return acc + current.value;
       }, 0)
       //return an array with the value left on table after each move
-      return availablePicksTotValue.map(x => tableValue - x);
+      
     });
+    return availablePicksTotValue.map(x => tableValue - x);
   }
 
   checkValueTable(table) {
@@ -174,19 +122,17 @@ class Player {
     if (count === 4) return true;
     return false;
   }
-}
-
-class Computer extends Player {
-  constructor(
-    name = "ai",
-    hand = [],
-    dealer = false,
-    pickedCards = [],
-    scoreCurrentGame = 0,
-    totalScore = 0,
-    sevenDiamonds = false
-
-  ) {
-    super(name, hand, dealer, pickedCards, scoreCurrentGame, totalScore, sevenDiamonds);
+//check how many diamonds for the single combination
+  checkHowManyDiamondsInCombination(availablePicks,cardPlayed){
+   var mappedPicks= availablePicks.map(function(pick){
+      return pick.filter(card=>card.name.split("")[1]==="D").length
+     })
+    //if also  the card played is diamonds add 1 to each pick
+    if(cardPlayed.name.split("")[1]==="D"){
+      return mappedPicks.map(pick=>pick+=1)
+    }
+    
   }
+//
+
 }
