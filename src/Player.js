@@ -9,16 +9,38 @@ class Player {
     this.sevenDiamonds = false;
   }
   playCard(cardSelected) {
-    for (var i = 0; i < 3; i++) {
-      if (this.hand[i].name === cardSelected.name) {
-        var cardPlayed = this.hand.splice(i, 1);
-      }
-    }
+    // for (var i = 0; i < 3; i++) {
+    //   if (this.hand[i].name === cardSelected.name) {
+    //      this.hand.splice(i, 1);
+    //   }
+    // }
+    // console.log("logic",this.hand[1].name)
+    this.hand=this.hand.filter(card=>{console.log("filter",card.name)
+      return card.name!==cardSelected})
     //put card on the table
-    this.table.push(cardPlayed);
+    // game.table.push(cardPlayed);
     //if available get card(s) or just add to the table
   }
+  addCardToTable(cardPlayed, table){
+    var card
+    console.log(this.hand)
+    for (var i = 0; i < this.hand.length; i++) {
+         if (this.hand[i].name === cardPlayed) {
+           card= this.hand.splice(i, 1)[0];
+         }
+       }
+    table.push(card);
+    this.hand=this.hand.filter(card=>{console.log("filter",card.name)
+    return card.name!==cardPlayed})
+    
+  }
   checkAvailableMove(table, cardPlayed) {
+    var cardPlayed 
+    for (var i = 0; i < this.hand.length; i++) {
+      if (this.hand[i].name === cardPlayed) {
+        cardPlayed= this.hand.splice(i, 1)[0];
+      }
+    }
     //find ALL the combination between the cards on the table
     function combine(a, min) {
       var fn = function (n, src, got, all) {

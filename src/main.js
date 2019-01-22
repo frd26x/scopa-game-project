@@ -156,7 +156,47 @@ $(document).ready(function() {
       $(this).toggleClass("select-pick")
     })
 
-    
+    //play card
+    $('.play-card-button').click(function(){
+      console.log(game.table)
+       var selected = $('.select-pick')
+       var valueCardPlayed = $('.selected-card').attr("data-card-name").split("")[0]
+       if(valueCardPlayed==="K"){valueCardPlayed=10}
+        if(valueCardPlayed==="Q"){valueCardPlayed=9}
+        if(valueCardPlayed==="J"){valueCardPlayed=8}
+        valueCardPlayed= parseInt(valueCardPlayed)
+        
+      var valueSelected=0
+      for(var i=0; i<selected.length;i++){
+        var value = $(selected[i]).attr("data-card-name").split("")[0]
+        if(value==="K"){value=10}
+        if(value==="Q"){value=9}
+        if(value==="J"){value=8}
+        valueSelected+= parseInt(value) 
+
+      }
+
+      if(valueSelected===valueCardPlayed){
+        console.log("main",$('.selected-card').attr("data-card-name"))
+        player.playCard($('.selected-card').attr("data-card-name"))
+        $('.selected-card').remove()
+        $('.select-pick').remove()
+        
+      }
+      
+var possiblePicks=player.checkAvailableMove(game.table,$('.selected-card').attr("data-card-name"))
+      if($('.select-pick').length===0&&possiblePicks.length===0){
+        console.log("cazzo fai")
+        player.addCardToTable($('.selected-card').attr("data-card-name"), game.table)
+        $('.table').append($('.selected-card'))
+      }else{
+        alert('you have to pick up something... picking available')
+      }
+      
+      
+
+     
+    })
     
   })
 

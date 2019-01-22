@@ -48,13 +48,23 @@
   top:70%;
   width: 30%;
 }
+
+.pick-player{
+  position: absolute;
+  right:15%;
+  top:70%;
+  width: 100px;
+  height: 145px;
+  background-size: cover !important;
+  
+}
 .top-card-deck{
   width:100px;
   height: 145px;
   position: absolute;
   left: 50px;
   top:100px;
-  /* background-position: center !important; */
+  
   background-size: cover !important;
 }
 
@@ -98,4 +108,8 @@ body{
 
 .select-pick{
   border: 4px solid red;
+}
+
+.play-card-button{
+  margin-left: 3%
 }
