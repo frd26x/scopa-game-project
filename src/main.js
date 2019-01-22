@@ -49,20 +49,35 @@ $(document).ready(function(){
   game = new Scopa(cards)
   game.shuffle(cards)
   var html = ""
+  
   game.cards.forEach(function (pic) {
-    html += '<div class="card" data-card-name="'+ pic.name +'">';
-    // html += '  <div class="back" name="'+ pic.img +'"></div>';
-    html += '  <div class="card" style="background: url(images/'+ pic.img +') no-repeat"></div>';
+    html += '<div class="card-deck" data-card-name="'+ pic.name +'" style="background: url(images/'+ pic.img +') no-repeat">';
+    
+    // html += '  <div class="card" style="background: url(images/'+ pic.img +') no-repeat"></div>';
     html += '</div>';
   });
-
+  html+= '<div class="top-card-deck" data-card-name="images/bg.jpg" style="background: url(images/bg.jpg) no-repeat">'
+  //  html += '  <div class="top-card-deck" style="background: url(images/bg.jpg) no-repeat"></div>'
+   html += '</div>';
+   
   $('.deck').html(html);
-console.log($('.deck'))
+
 
 
   player= new Player("player")
   ai = new Computer("ai")
+  var firstCardPlayer=$('.deck > .card')[$('.deck > .card').length-1]
+  $(".hand-player").append(firstCardPlayer)
+  // $(firstCardPlayer).addClass( "move-handPlayer-position-one" )
+  $(firstCardPlayer).toggleClass( "card-deck" )
+  $(firstCardPlayer).toggleClass( "card-hand" )
   game.giveCard(player)
+  
+  var firstCardAi=$('.deck > .card')[$('.deck > .card').length-1]
+  $(firstCardAi).toggleClass( "card-deck" )
+  $(firstCardAi).toggleClass( "card-hand" )
+  $(".hand-ai").append(firstCardAi)
+  // $(firstCardAi).addClass( "move-handPlayer-position-one" )
   game.giveCard(ai)
   game.giveCard(player)
   game.giveCard(ai)

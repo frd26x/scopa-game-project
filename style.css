@@ -1,18 +1,65 @@
-.deck{
-  background-color: blue;
-  width: 100px;
-  height: 300px;
+.deck-cover{
+  width:100px;
+  height: 145px;
+  position: absolute;
+  left: 50px;
+  top:100px;
+  /* background-position: center !important; */
+  background-size: cover !important;
+  background-image: url("images/bg.jpg")
   
 }
 
-.card{
-  width: 50px;
-  height: 90px;
+.card-deck{
+  width:100px;
+  height: 145px;
   position: absolute;
   left: 50px;
-  top:300px;
+  top:100px;
+  margin: 0 0 !important;
+  /* background-position: center !important; */
+  background-size: cover !important;
 }
 
-.deck-card{
-  display: none
+.card-hand{
+  width:100px;
+  height: 145px;
+  
+  
+  
+  /* background-position: center !important; */
+  background-size: cover !important;
+}
+
+.hand-player{
+  width: 30%;
+}
+.top-card-deck{
+  width:100px;
+  height: 145px;
+  position: absolute;
+  left: 50px;
+  top:100px;
+  /* background-position: center !important; */
+  background-size: cover !important;
+}
+
+
+
+.deck{
+  width: 100px;
+  height: 145px;
+  position: absolute;
+  left: 50px;
+  top:100px;
+}
+
+
+
+.move-handPlayer-position-one{
+  transform: translate(350px)
+}
+
+body{
+  background-color:green;
 }
