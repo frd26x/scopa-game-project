@@ -8,15 +8,22 @@ class Player {
     this.totalScore = 0;
     this.sevenDiamonds = false;
   }
-  playCard(cardSelected) {
+  playCard(cardSelected,cardsPicked,game) {
     // for (var i = 0; i < 3; i++) {
     //   if (this.hand[i].name === cardSelected.name) {
     //      this.hand.splice(i, 1);
     //   }
     // }
     // console.log("logic",this.hand[1].name)
-    this.hand=this.hand.filter(card=>{console.log("filter",card.name)
+    this.hand=this.hand.filter(card=>{
       return card.name!==cardSelected})
+
+      for(var i=0; i<cardsPicked.length;i++){
+  game.table = game.table.filter(card=>{
+    return card.name!==$(cardsPicked[i]).attr("data-card-name")})
+}
+
+
     //put card on the table
     // game.table.push(cardPlayed);
     //if available get card(s) or just add to the table
@@ -104,6 +111,7 @@ class Player {
     //transform each pick in the total value of the card picked
     var availablePicksTotValue = availablePicks.map(function (pick) {
       return pick.reduce(function (acc, current) {
+        console.log('reduce',current.value)
         return acc + current.value;
       }, 0)
       //return an array with the value left on table after each move

@@ -48,7 +48,6 @@ $(document).ready(function() {
   game = new Scopa(cards);
   game.shuffle(cards);
   var html = "";
-  
 
   game.cards.forEach(function(pic) {
     html +=
@@ -58,7 +57,6 @@ $(document).ready(function() {
       pic.img +
       ') no-repeat">';
 
-   
     html += "</div>";
   });
   html +=
@@ -70,8 +68,8 @@ $(document).ready(function() {
 
   player = new Player("player");
   ai = new Computer("ai");
-  
-  $(".start").click(function(){
+
+  $(".start").click(function() {
     var firstCardPlayer = $(".deck > .card-deck")[
       $(".deck > .card-deck").length - 1
     ];
@@ -79,13 +77,15 @@ $(document).ready(function() {
     $(firstCardPlayer).toggleClass("card-deck");
     $(firstCardPlayer).toggleClass("card-hand onclick-option");
     game.giveCard(player);
-  
-    var firstCardAi = $(".deck > .card-deck")[$(".deck > .card-deck").length - 1];
+
+    var firstCardAi = $(".deck > .card-deck")[
+      $(".deck > .card-deck").length - 1
+    ];
     $(firstCardAi).toggleClass("card-deck");
     $(firstCardAi).toggleClass("card-hand ai-show-back");
     $(".hand-ai").append(firstCardAi);
     game.giveCard(ai);
-  
+
     var SecondCardPlayer = $(".deck > .card-deck")[
       $(".deck > .card-deck").length - 1
     ];
@@ -93,7 +93,7 @@ $(document).ready(function() {
     $(SecondCardPlayer).toggleClass("card-deck");
     $(SecondCardPlayer).toggleClass("card-hand onclick-option");
     game.giveCard(player);
-  
+
     var SecondCardAi = $(".deck > .card-deck")[
       $(".deck > .card-deck").length - 1
     ];
@@ -101,7 +101,7 @@ $(document).ready(function() {
     $(SecondCardAi).toggleClass("card-hand ai-show-back");
     $(".hand-ai").append(SecondCardAi);
     game.giveCard(ai);
-  
+
     var thirdCardPlayer = $(".deck > .card-deck")[
       $(".deck > .card-deck").length - 1
     ];
@@ -109,34 +109,36 @@ $(document).ready(function() {
     $(thirdCardPlayer).toggleClass("card-deck");
     $(thirdCardPlayer).toggleClass("card-hand onclick-option");
     game.giveCard(player);
-  
-    var thirdCardAi = $(".deck > .card-deck")[$(".deck > .card-deck").length - 1];
+
+    var thirdCardAi = $(".deck > .card-deck")[
+      $(".deck > .card-deck").length - 1
+    ];
     $(thirdCardAi).toggleClass("card-deck");
     $(thirdCardAi).toggleClass("card-hand ai-show-back");
     $(".hand-ai").append(thirdCardAi);
     game.giveCard(ai);
-  
+
     var cardTableOne = $(".deck > .card-deck")[
       $(".deck > .card-deck").length - 1
     ];
     $(cardTableOne).toggleClass("card-deck table-card");
     $(cardTableOne).toggleClass("card-hand");
     $(".table").append(cardTableOne);
-  
+
     var cardTableTwo = $(".deck > .card-deck")[
       $(".deck > .card-deck").length - 1
     ];
     $(cardTableTwo).toggleClass("card-hand table-card");
     $(cardTableTwo).toggleClass("card-deck");
     $(".table").append(cardTableTwo);
-  
+
     var cardTableThree = $(".deck > .card-deck")[
       $(".deck > .card-deck").length - 1
     ];
     $(cardTableThree).toggleClass("card-hand table-card");
     $(cardTableThree).toggleClass("card-deck");
     $(".table").append(cardTableThree);
-  
+
     var cardTableFour = $(".deck > .card-deck")[
       $(".deck > .card-deck").length - 1
     ];
@@ -144,64 +146,78 @@ $(document).ready(function() {
     $(cardTableFour).toggleClass("card-deck");
     $(".table").append(cardTableFour);
     game.putCardsOnTable();
-//select card to play
-    $(".onclick-option").click(function(e){
-     
-      $('.selected-card').toggleClass("selected-card")
-      $(this).toggleClass("selected-card")
-    })
+    //select card to play
 
-    //select card to pick 
-    $('.table-card').click(function(e){
-      $(this).toggleClass("select-pick")
-    })
+    $(".onclick-option").click(function(e) {
+      $(".selected-card").toggleClass("selected-card");
+      $(this).toggleClass("selected-card");
+    });
+
+    //select card to pick
+    $(".table-card").click(function(e) {
+      $(this).toggleClass("select-pick");
+    });
 
     //play card
-    $('.play-card-button').click(function(){
-      console.log(game.table)
-       var selected = $('.select-pick')
-       var valueCardPlayed = $('.selected-card').attr("data-card-name").split("")[0]
-       if(valueCardPlayed==="K"){valueCardPlayed=10}
-        if(valueCardPlayed==="Q"){valueCardPlayed=9}
-        if(valueCardPlayed==="J"){valueCardPlayed=8}
-        valueCardPlayed= parseInt(valueCardPlayed)
-        
-      var valueSelected=0
-      for(var i=0; i<selected.length;i++){
-        var value = $(selected[i]).attr("data-card-name").split("")[0]
-        if(value==="K"){value=10}
-        if(value==="Q"){value=9}
-        if(value==="J"){value=8}
-        valueSelected+= parseInt(value) 
+    $(".play-card-button").click(function() {
+      console.log(game.table);
+      var selected = $(".select-pick");
+      var valueCardPlayed = $(".selected-card")
+        .attr("data-card-name")
+        .split("")[0];
+      if (valueCardPlayed === "K") {
+        valueCardPlayed = 10;
+      }
+      if (valueCardPlayed === "Q") {
+        valueCardPlayed = 9;
+      }
+      if (valueCardPlayed === "J") {
+        valueCardPlayed = 8;
+      }
+      valueCardPlayed = parseInt(valueCardPlayed);
 
+      var valueSelected = 0;
+      for (var i = 0; i < selected.length; i++) {
+        var value = $(selected[i])
+          .attr("data-card-name")
+          .split("")[0];
+        if (value === "K") {
+          value = 10;
+        }
+        if (value === "Q") {
+          value = 9;
+        }
+        if (value === "J") {
+          value = 8;
+        }
+        valueSelected += parseInt(value);
       }
 
-      if(valueSelected===valueCardPlayed){
-        console.log("main",$('.selected-card').attr("data-card-name"))
-        player.playCard($('.selected-card').attr("data-card-name"))
-        $('.selected-card').remove()
-        $('.select-pick').remove()
-        
+      var possiblePicks = player.checkAvailableMove(
+        game.table,
+        $(".selected-card").attr("data-card-name")
+      );
+      //if value picking = value card plyed go on
+      if (valueSelected === valueCardPlayed) {
+        console.log("main", $(".selected-card").attr("data-card-name"));
+        player.playCard(
+          $(".selected-card").attr("data-card-name"),
+          $(".select-pick"),
+          game
+        );
+        $(".selected-card").remove();
+        $(".select-pick").remove();
       }
-      
-var possiblePicks=player.checkAvailableMove(game.table,$('.selected-card').attr("data-card-name"))
-      if($('.select-pick').length===0&&possiblePicks.length===0){
-        console.log("cazzo fai")
-        player.addCardToTable($('.selected-card').attr("data-card-name"), game.table)
-        $('.table').append($('.selected-card'))
-      }else{
-        alert('you have to pick up something... picking available')
+      //if there are no available picking allow to just add card on the table
+      else if ($(".select-pick").length === 0 && possiblePicks.length === 0) {
+        player.addCardToTable(
+          $(".selected-card").attr("data-card-name"),
+          game.table
+        );
+        $(".table").append($(".selected-card"));
+      } else {
+        alert("you have to pick up something... picking available");
       }
-      
-      
-
-     
-    })
-    
-  })
-
-
-
-
-  
+    });
+  });
 });
