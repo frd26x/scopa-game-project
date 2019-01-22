@@ -57,7 +57,7 @@ $(document).ready(function() {
       pic.img +
       ') no-repeat">';
 
-    // html += '  <div class="card" style="background: url(images/'+ pic.img +') no-repeat"></div>';
+   
     html += "</div>";
   });
   html +=
@@ -70,79 +70,81 @@ $(document).ready(function() {
   player = new Player("player");
   ai = new Computer("ai");
   $(".start").click(function(){
-    
+    var firstCardPlayer = $(".deck > .card-deck")[
+      $(".deck > .card-deck").length - 1
+    ];
+    $(".hand-player").append(firstCardPlayer);
+    $(firstCardPlayer).toggleClass("card-deck");
+    $(firstCardPlayer).toggleClass("card-hand");
+    game.giveCard(player);
+  
+    var firstCardAi = $(".deck > .card-deck")[$(".deck > .card-deck").length - 1];
+    $(firstCardAi).toggleClass("card-deck");
+    $(firstCardAi).toggleClass("card-hand ai-show-back");
+    $(".hand-ai").append(firstCardAi);
+    game.giveCard(ai);
+  
+    var SecondCardPlayer = $(".deck > .card-deck")[
+      $(".deck > .card-deck").length - 1
+    ];
+    $(".hand-player").append(SecondCardPlayer);
+    $(SecondCardPlayer).toggleClass("card-deck");
+    $(SecondCardPlayer).toggleClass("card-hand");
+    game.giveCard(player);
+  
+    var SecondCardAi = $(".deck > .card-deck")[
+      $(".deck > .card-deck").length - 1
+    ];
+    $(SecondCardAi).toggleClass("card-deck");
+    $(SecondCardAi).toggleClass("card-hand ai-show-back");
+    $(".hand-ai").append(SecondCardAi);
+    game.giveCard(ai);
+  
+    var thirdCardPlayer = $(".deck > .card-deck")[
+      $(".deck > .card-deck").length - 1
+    ];
+    $(".hand-player").append(thirdCardPlayer);
+    $(thirdCardPlayer).toggleClass("card-deck");
+    $(thirdCardPlayer).toggleClass("card-hand");
+    game.giveCard(player);
+  
+    var thirdCardAi = $(".deck > .card-deck")[$(".deck > .card-deck").length - 1];
+    $(thirdCardAi).toggleClass("card-deck");
+    $(thirdCardAi).toggleClass("card-hand ai-show-back");
+    $(".hand-ai").append(thirdCardAi);
+    game.giveCard(ai);
+  
+    var cardTableOne = $(".deck > .card-deck")[
+      $(".deck > .card-deck").length - 1
+    ];
+    $(cardTableOne).toggleClass("card-deck");
+    $(cardTableOne).toggleClass("card-hand");
+    $(".table").append(cardTableOne);
+  
+    var cardTableTwo = $(".deck > .card-deck")[
+      $(".deck > .card-deck").length - 1
+    ];
+    $(cardTableTwo).toggleClass("card-hand");
+    $(cardTableTwo).toggleClass("card-deck");
+    $(".table").append(cardTableTwo);
+  
+    var cardTableThree = $(".deck > .card-deck")[
+      $(".deck > .card-deck").length - 1
+    ];
+    $(cardTableThree).toggleClass("card-hand");
+    $(cardTableThree).toggleClass("card-deck");
+    $(".table").append(cardTableThree);
+  
+    var cardTableFour = $(".deck > .card-deck")[
+      $(".deck > .card-deck").length - 1
+    ];
+    $(cardTableFour).toggleClass("card-hand");
+    $(cardTableFour).toggleClass("card-deck");
+    $(".table").append(cardTableFour);
+    game.putCardsOnTable();
   })
 
-  var firstCardPlayer = $(".deck > .card-deck")[
-    $(".deck > .card-deck").length - 1
-  ];
-  $(".hand-player").append(firstCardPlayer);
-  $(firstCardPlayer).toggleClass("card-deck");
-  $(firstCardPlayer).toggleClass("card-hand");
-  game.giveCard(player);
+  
 
-  var firstCardAi = $(".deck > .card-deck")[$(".deck > .card-deck").length - 1];
-  $(firstCardAi).toggleClass("card-deck");
-  $(firstCardAi).toggleClass("card-hand ai-show-back");
-  $(".hand-ai").append(firstCardAi);
-  game.giveCard(ai);
-
-  var SecondCardPlayer = $(".deck > .card-deck")[
-    $(".deck > .card-deck").length - 1
-  ];
-  $(".hand-player").append(SecondCardPlayer);
-  $(SecondCardPlayer).toggleClass("card-deck");
-  $(SecondCardPlayer).toggleClass("card-hand");
-  game.giveCard(player);
-
-  var SecondCardAi = $(".deck > .card-deck")[
-    $(".deck > .card-deck").length - 1
-  ];
-  $(SecondCardAi).toggleClass("card-deck");
-  $(SecondCardAi).toggleClass("card-hand ai-show-back");
-  $(".hand-ai").append(SecondCardAi);
-  game.giveCard(ai);
-
-  var thirdCardPlayer = $(".deck > .card-deck")[
-    $(".deck > .card-deck").length - 1
-  ];
-  $(".hand-player").append(thirdCardPlayer);
-  $(thirdCardPlayer).toggleClass("card-deck");
-  $(thirdCardPlayer).toggleClass("card-hand");
-  game.giveCard(player);
-
-  var thirdCardAi = $(".deck > .card-deck")[$(".deck > .card-deck").length - 1];
-  $(thirdCardAi).toggleClass("card-deck");
-  $(thirdCardAi).toggleClass("card-hand ai-show-back");
-  $(".hand-ai").append(thirdCardAi);
-  game.giveCard(ai);
-
-  var cardTableOne = $(".deck > .card-deck")[
-    $(".deck > .card-deck").length - 1
-  ];
-  $(cardTableOne).toggleClass("card-deck");
-  $(cardTableOne).toggleClass("card-hand");
-  $(".table").append(cardTableOne);
-
-  var cardTableTwo = $(".deck > .card-deck")[
-    $(".deck > .card-deck").length - 1
-  ];
-  $(cardTableTwo).toggleClass("card-hand");
-  $(cardTableTwo).toggleClass("card-deck");
-  $(".table").append(cardTableTwo);
-
-  var cardTableThree = $(".deck > .card-deck")[
-    $(".deck > .card-deck").length - 1
-  ];
-  $(cardTableThree).toggleClass("card-hand");
-  $(cardTableThree).toggleClass("card-deck");
-  $(".table").append(cardTableThree);
-
-  var cardTableFour = $(".deck > .card-deck")[
-    $(".deck > .card-deck").length - 1
-  ];
-  $(cardTableFour).toggleClass("card-hand");
-  $(cardTableFour).toggleClass("card-deck");
-  $(".table").append(cardTableFour);
-  game.putCardsOnTable();
+  
 });
