@@ -29,14 +29,18 @@ class Player {
     //if available get card(s) or just add to the table
   }
   addCardToTable(cardPlayed, table){
-    var card
-    console.log(this.hand)
+    
+    console.log('hbhbhb',this.hand)
     for (var i = 0; i < this.hand.length; i++) {
          if (this.hand[i].name === cardPlayed) {
-           card= this.hand.splice(i, 1)[0];
+           
+          // table.push(this.hand.splice(i, 1)[0]);
+          table.push(this.hand[i])
+
+           
          }
        }
-    table.push(card);
+    
     this.hand=this.hand.filter(card=>{console.log("filter",card.name)
     return card.name!==cardPlayed})
     
@@ -45,7 +49,8 @@ class Player {
     var cardPlayed 
     for (var i = 0; i < this.hand.length; i++) {
       if (this.hand[i].name === cardPlayed) {
-        cardPlayed= this.hand.splice(i, 1)[0];
+        // cardPlayed= this.hand.splice(i, 1)[0];
+        cardPlayed= this.hand[i]
       }
     }
     //find ALL the combination between the cards on the table
@@ -100,7 +105,7 @@ class Player {
     if (availablePicks.length > 0) {
       return availablePicks;
     } else {
-      return false;
+      return [];
     }
   }
   //for each move check wich cards are left on the table, it will return an array
@@ -111,8 +116,8 @@ class Player {
     //transform each pick in the total value of the card picked
     var availablePicksTotValue = availablePicks.map(function (pick) {
       return pick.reduce(function (acc, current) {
-        console.log('reduce',current.value)
-        return acc + current.value;
+        
+        return acc + current[0].value;
       }, 0)
       //return an array with the value left on table after each move
       

@@ -24,11 +24,11 @@ var cards = [
   { name: "3S", img: "3S.jpg", value: 3, prime: 13 },
   { name: "4S", img: "4S.jpg", value: 4, prime: 14 },
   { name: "5S", img: "5S.jpg", value: 5, prime: 15 },
-  { name: "6S", img: "6C.jpg", value: 6, prime: 18 },
-  { name: "7S", img: "7C.jpg", value: 7, prime: 21 },
-  { name: "JS", img: "JC.jpg", value: 8, prime: 10 },
-  { name: "QS", img: "QC.jpg", value: 9, prime: 10 },
-  { name: "KS", img: "KC.jpg", value: 10, prime: 10 },
+  { name: "6S", img: "6S.jpg", value: 6, prime: 18 },
+  { name: "7S", img: "7S.jpg", value: 7, prime: 21 },
+  { name: "JS", img: "JS.jpg", value: 8, prime: 10 },
+  { name: "QS", img: "QS.jpg", value: 9, prime: 10 },
+  { name: "KS", img: "KS.jpg", value: 10, prime: 10 },
   { name: "1H", img: "1H.jpg", value: 1, prime: 16 },
   { name: "2H", img: "2H.jpg", value: 2, prime: 12 },
   { name: "3H", img: "3H.jpg", value: 3, prime: 13 },
@@ -45,6 +45,7 @@ var player;
 var game;
 var ai;
 $(document).ready(function() {
+  $(".start").click(function() {
   game = new Scopa(cards);
   game.shuffle(cards);
   var html = "";
@@ -69,7 +70,7 @@ $(document).ready(function() {
   player = new Player("player");
   ai = new Computer("ai");
 
-  $(".start").click(function() {
+  
     var firstCardPlayer = $(".deck > .card-deck")[
       $(".deck > .card-deck").length - 1
     ];
@@ -149,7 +150,10 @@ $(document).ready(function() {
     //select card to play
 
     $(".onclick-option").click(function(e) {
+      console.log('selected',e)
+      
       $(".selected-card").toggleClass("selected-card");
+
       $(this).toggleClass("selected-card");
     });
 
@@ -160,7 +164,7 @@ $(document).ready(function() {
 
     //play card
     $(".play-card-button").click(function() {
-      console.log(game.table);
+      
       var selected = $(".select-pick");
       var valueCardPlayed = $(".selected-card")
         .attr("data-card-name")
@@ -207,17 +211,112 @@ $(document).ready(function() {
         );
         $(".selected-card").remove();
         $(".select-pick").remove();
+        aiGame()
       }
-      //if there are no available picking allow to just add card on the table
+      //if there are no available picking allow to just ADD card on the table
       else if ($(".select-pick").length === 0 && possiblePicks.length === 0) {
         player.addCardToTable(
           $(".selected-card").attr("data-card-name"),
           game.table
         );
+        
+        //add card on table(DOM)
         $(".table").append($(".selected-card"));
+        //add class table-card to new entry 
+        $(".selected-card").addClass('table-card')
+        //remove onlick attribute from new entry
+        
+        $($(".table-card")[$(".table-card").length-1]).unbind('click')
+        //remove class selected-card(for border highlight)
+        $(".selected-card").removeClass('selected-card onclick-option')
+        //add to the new entry the onclick option as pickable-card
+       $($(".table-card")[$(".table-card").length-1]).click(function(e) {
+          $(this).toggleClass("select-pick");
+        });
+        
+        //ai play
+        aiGame()
+       
+
       } else {
         alert("you have to pick up something... picking available");
       }
     });
   });
 });
+
+function aiGame(){
+  
+  console.log('move1',ai.checkAvailableMove(game.table,ai.hand[0]))
+  console.log('move2',ai.checkAvailableMove(game.table,ai.hand[1])) 
+  console.log('move3',ai.checkAvailableMove(game.table,ai.hand[2]))
+  // var move1 =ai.checkAvailableMove(game.table,ai.hand[0])
+  // var move2 =ai.checkAvailableMove(game.table,ai.hand[1])
+  // var move3=ai.checkAvailableMove(game.table,ai.hand[2])
+  var arrayMove = []
+  for(var i=0; i<ai.hand.length; i++){
+    arrayMove.push(ai.checkAvailableMove(game.table,ai.hand[i]))
+  }
+  console.log(arrayMove.every(move=>move.length===0))
+  //if no moves available just add card to table
+if(arrayMove.every(move=>move.length===0)){
+
+//wich card??
+console.log("NO PICKING AVAILABLE")
+console.log('ai hand, pick the greatest between:',ai.hand)
+
+}else
+//if there are moves available
+{
+  console.log('WHAT LEFT?')
+  
+  //left value table for each card
+//  var leftValueTable =ai.checkWhatLeft(arrayMove, game.table)
+//  console.log(leftValueTable)
+ 
+//  console.log(leftValueTable.sort((a,b)=>b-a)[0])
+//  console.log(leftValueTable.indexOf(leftValueTable.sort((a,b)=>b-a)[0]))
+//  var positionCardToPlay=leftValueTable.indexOf(leftValueTable.sort((a,b)=>b-a)[0])
+
+ //get card to play (for now play the one can get card)
+ //find index card that can pick
+ 
+ var cardToPlay= arrayMove.indexOf(arrayMove.filter(move=>move.length>0)[0])
+ console.log("cardToPlay", cardToPlay)
+ console.log($($(".hand-ai").children()[cardToPlay]))
+$($(".hand-ai").children()[cardToPlay]).remove()
+
+
+
+ //get card to pick (for now play the one can get card)
+var nameCardsToPick=[]
+
+console.log(arrayMove[cardToPlay])
+for(var i=0; i<arrayMove[cardToPlay][0].length;i++){
+  nameCardsToPick.push(arrayMove[cardToPlay][0][i].name) 
+}
+console.log(nameCardsToPick)
+var table = $('.table').children()
+console.log(table)
+for(var i=0; i<nameCardsToPick.length;i++){
+  for(var j=0;j<table.length;j++){
+    if($(table[j]).attr("data-card-name")===nameCardsToPick[i])$(table[j]).remove()
+  }
+}
+
+
+ 
+ //get moves that leave tablevalue greater value on table
+ 
+
+
+
+
+
+ 
+
+}
+
+}
+
+
