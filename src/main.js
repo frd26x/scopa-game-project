@@ -71,53 +71,23 @@ $(document).ready(function() {
   ai = new Computer("ai");
 
   
-    var firstCardPlayer = $(".deck > .card-deck")[
-      $(".deck > .card-deck").length - 1
-    ];
-    $(".hand-player").append(firstCardPlayer);
-    $(firstCardPlayer).toggleClass("card-deck");
-    $(firstCardPlayer).toggleClass("card-hand onclick-option");
-    game.giveCard(player);
+  giveCardPlayer()
+    
 
-    var firstCardAi = $(".deck > .card-deck")[
-      $(".deck > .card-deck").length - 1
-    ];
-    $(firstCardAi).toggleClass("card-deck");
-    $(firstCardAi).toggleClass("card-hand ai-show-back");
-    $(".hand-ai").append(firstCardAi);
-    game.giveCard(ai);
+    giveCardAI()
+    
 
-    var SecondCardPlayer = $(".deck > .card-deck")[
-      $(".deck > .card-deck").length - 1
-    ];
-    $(".hand-player").append(SecondCardPlayer);
-    $(SecondCardPlayer).toggleClass("card-deck");
-    $(SecondCardPlayer).toggleClass("card-hand onclick-option");
-    game.giveCard(player);
+    giveCardPlayer()
+    
 
-    var SecondCardAi = $(".deck > .card-deck")[
-      $(".deck > .card-deck").length - 1
-    ];
-    $(SecondCardAi).toggleClass("card-deck");
-    $(SecondCardAi).toggleClass("card-hand ai-show-back");
-    $(".hand-ai").append(SecondCardAi);
-    game.giveCard(ai);
+    giveCardAI()
+    
 
-    var thirdCardPlayer = $(".deck > .card-deck")[
-      $(".deck > .card-deck").length - 1
-    ];
-    $(".hand-player").append(thirdCardPlayer);
-    $(thirdCardPlayer).toggleClass("card-deck");
-    $(thirdCardPlayer).toggleClass("card-hand onclick-option");
-    game.giveCard(player);
+    giveCardPlayer()
+    
 
-    var thirdCardAi = $(".deck > .card-deck")[
-      $(".deck > .card-deck").length - 1
-    ];
-    $(thirdCardAi).toggleClass("card-deck");
-    $(thirdCardAi).toggleClass("card-hand ai-show-back");
-    $(".hand-ai").append(thirdCardAi);
-    game.giveCard(ai);
+    giveCardAI()
+    
 
     var cardTableOne = $(".deck > .card-deck")[
       $(".deck > .card-deck").length - 1
@@ -266,8 +236,17 @@ if(arrayMove.every(move=>move.length===0)){
 console.log("NO PICKING AVAILABLE")
 // console.log('ai hand, pick the greatest between:',ai.hand)
 // console.log(ai.hand.sort((a,b)=>b.value - a.value))
-var cardToPlayPosition =ai.hand.indexOf(ai.hand.sort((a,b)=>b.value - a.value)[0])
+
+//var cardToPlayPosition =ai.hand.indexOf(ai.hand.sort((a,b)=>b.value - a.value)[0])//check this the array stay sorted
 // console.log(cardToPlayPosition)
+var cardToPlayPosition=0
+if(ai.hand.length>1){
+  for(var i=1;i<ai.hand.length;i++){
+    if(ai.hand[i].value>ai.hand[cardToPlayPosition]){
+      cardToPlayPosition=ai.hand[i]
+    }
+  }
+}
 var cardToPlay=$(".hand-ai").children()[cardToPlayPosition]
 // console.log(cardToPlay) 
 $(".table").append(cardToPlay)
@@ -298,6 +277,7 @@ ai.addCardToTable(ai.hand[cardToPlayPosition].name,game.table)
  var cardToPlay= arrayMove.indexOf(arrayMove.filter(move=>move.length>0)[0])
 //  console.log("cardToPlayposition", cardToPlay)
 //  console.log('card to play',$($(".hand-ai").children()[cardToPlay]))
+console.log('remove from DOM AI',$(".hand-ai").children()[cardToPlay])
 $($(".hand-ai").children()[cardToPlay]).remove()
 
 
@@ -317,11 +297,11 @@ for(var i=0; i<nameCardsToPick.length;i++){
   for(var j=0;j<table.length;j++){
     if($(table[j]).attr("data-card-name")===nameCardsToPick[i]){
       cardPicked.push($(table[j]))
-      
+      console.log("REMOVE FROM TABLE DOM AI", $(table[j]))
       $(table[j]).remove()}
   }
 }
-console.log('cardPicked FROM THE DOM ',cardPicked)
+// console.log('cardPicked FROM THE DOM ',cardPicked)
 ai.playCard(ai.hand[cardToPlay].name,cardPicked,game)
 //LOGIC
 
@@ -346,3 +326,37 @@ ai.playCard(ai.hand[cardToPlay].name,cardPicked,game)
 }
 
 
+////////////////////////GIVE CARD AI
+function giveCardAI(){
+  var card = $(".deck > .card-deck")[
+        $(".deck > .card-deck").length - 1
+      ];
+      $(card).toggleClass("card-deck");
+      $(card).toggleClass("card-hand ai-show-back");
+      $(".hand-ai").append(card);
+      game.giveCard(ai);
+  }
+  
+  //////////////////GIVE CARD PLAYER
+  function giveCardPlayer(){
+  var CardPlayer = $(".deck > .card-deck")[
+        $(".deck > .card-deck").length - 1
+      ];
+      $(".hand-player").append(CardPlayer);
+      $(CardPlayer).toggleClass("card-deck");
+      $(CardPlayer).toggleClass("card-hand onclick-option");
+      game.giveCard(player);
+  }
+  
+  ///////////////////////////MAKE CARD HAND PLAYER SELECTABLE
+  function makeCardsPlayerSelectable(){
+  $(".onclick-option").click(function(e) {
+        // console.log('selected',e)
+        
+        $(".selected-card").toggleClass("selected-card");
+  
+        $(this).toggleClass("selected-card");
+      });
+  
+  }
+  
