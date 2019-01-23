@@ -264,6 +264,19 @@ if(arrayMove.every(move=>move.length===0)){
 //wich card??
 console.log("NO PICKING AVAILABLE")
 console.log('ai hand, pick the greatest between:',ai.hand)
+console.log(ai.hand.sort((a,b)=>b.value - a.value))
+var cardToPlayPosition =ai.hand.indexOf(ai.hand.sort((a,b)=>b.value - a.value))
+console.log(cardToPlayPosition)
+var cardToPlay=$(".hand-ai").children()[cardToPlayPosition]
+console.log(cardToPlay) 
+$(".table").append(cardToPlay)
+$(cardToPlay).unbind('click')
+$(cardToPlay).removeClass('selected-card onclick-option')
+$(cardToPlay).click(function(e) {
+  $(this).toggleClass("select-pick");
+});
+ai.addCardToTable(ai.hand[cardToPlayPosition],game.table)
+
 
 }else
 //if there are moves available
@@ -282,15 +295,15 @@ console.log('ai hand, pick the greatest between:',ai.hand)
  //find index card that can pick
  
  var cardToPlay= arrayMove.indexOf(arrayMove.filter(move=>move.length>0)[0])
- console.log("cardToPlay", cardToPlay)
- console.log($($(".hand-ai").children()[cardToPlay]))
+ console.log("cardToPlayposition", cardToPlay)
+ console.log('card to play',$($(".hand-ai").children()[cardToPlay]))
 $($(".hand-ai").children()[cardToPlay]).remove()
 
 
-
+//DOM
  //get card to pick (for now play the one can get card)
 var nameCardsToPick=[]
-
+ai.playCard(ai.hand[cardToPlay],arrayMove[cardToPlay],game)
 console.log(arrayMove[cardToPlay])
 for(var i=0; i<arrayMove[cardToPlay][0].length;i++){
   nameCardsToPick.push(arrayMove[cardToPlay][0][i].name) 
@@ -300,10 +313,18 @@ var table = $('.table').children()
 console.log(table)
 for(var i=0; i<nameCardsToPick.length;i++){
   for(var j=0;j<table.length;j++){
-    if($(table[j]).attr("data-card-name")===nameCardsToPick[i])$(table[j]).remove()
+    if($(table[j]).attr("data-card-name")===nameCardsToPick[i]){
+      // cardPicked.push($(table[j]))
+      $(table[j]).remove()}
   }
 }
+//LOGIC
 
+// for(var i=0;i<nameCardsToPick.length;i++){
+//   for(var j=0; j<game.table.length;i++){
+//     if(nameCardsToPick[i]===game.table[j].)
+//   }
+// }
 
  
  //get moves that leave tablevalue greater value on table
