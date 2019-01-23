@@ -30,7 +30,7 @@ class Player {
   }
   addCardToTable(cardPlayed, table){
     
-    console.log('hbhbhb',this.hand)
+    
     for (var i = 0; i < this.hand.length; i++) {
          if (this.hand[i].name === cardPlayed) {
            
@@ -41,18 +41,21 @@ class Player {
          }
        }
     
-    this.hand=this.hand.filter(card=>{console.log("filter",card.name)
+    this.hand=this.hand.filter(card=>{
     return card.name!==cardPlayed})
     
   }
   checkAvailableMove(table, cardPlayed) {
-    var cardPlayed 
-    for (var i = 0; i < this.hand.length; i++) {
-      if (this.hand[i].name === cardPlayed) {
-        // cardPlayed= this.hand.splice(i, 1)[0];
-        cardPlayed= this.hand[i]
-      }
-    }
+   
+
+    // var cardPlayed 
+   
+    // for (var i = 0; i < this.hand.length; i++) {
+    //   if (this.hand[i].name === cardPlayed) {
+    //     // cardPlayed= this.hand.splice(i, 1)[0];
+    //     cardPlayed= this.hand[i]
+    //   }
+    // }
     //find ALL the combination between the cards on the table
     function combine(a, min) {
       var fn = function (n, src, got, all) {
