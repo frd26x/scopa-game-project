@@ -203,7 +203,8 @@ $(document).ready(function() {
       );
       //if value picking = value card plyed go on
       if (valueSelected === valueCardPlayed) {
-        console.log("main", $(".selected-card").attr("data-card-name"));
+        // console.log("main", $(".selected-card").attr("data-card-name"));
+        console.log('cards picked from DOM PLAYER',$(".select-pick").toArray())
         player.playCard(
           $(".selected-card").attr("data-card-name"),
           $(".select-pick"),
@@ -257,7 +258,7 @@ function aiGame(){
   for(var i=0; i<ai.hand.length; i++){
     arrayMove.push(ai.checkAvailableMove(game.table,ai.hand[i]))
   }
-  console.log(arrayMove.every(move=>move.length===0))
+  // console.log(arrayMove.every(move=>move.length===0))
   //if no moves available just add card to table
 if(arrayMove.every(move=>move.length===0)){
 
@@ -305,13 +306,13 @@ $($(".hand-ai").children()[cardToPlay]).remove()
 var nameCardsToPick=[]
 var cardPicked =[]
 
-console.log(arrayMove[cardToPlay])
+// console.log(arrayMove[cardToPlay])
 for(var i=0; i<arrayMove[cardToPlay][0].length;i++){
   nameCardsToPick.push(arrayMove[cardToPlay][0][i].name) 
 }
-console.log(nameCardsToPick)
+// console.log(nameCardsToPick)
 var table = $('.table').children()
-console.log(table)
+// console.log(table)
 for(var i=0; i<nameCardsToPick.length;i++){
   for(var j=0;j<table.length;j++){
     if($(table[j]).attr("data-card-name")===nameCardsToPick[i]){
@@ -320,7 +321,7 @@ for(var i=0; i<nameCardsToPick.length;i++){
       $(table[j]).remove()}
   }
 }
-
+console.log('cardPicked FROM THE DOM ',cardPicked)
 ai.playCard(ai.hand[cardToPlay].name,cardPicked,game)
 //LOGIC
 

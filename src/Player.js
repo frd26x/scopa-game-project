@@ -9,16 +9,30 @@ class Player {
     this.sevenDiamonds = false;
   }
   playCard(cardSelected,cardsPicked,game) {
-    // for (var i = 0; i < 3; i++) {
-    //   if (this.hand[i].name === cardSelected.name) {
-    //      this.hand.splice(i, 1);
-    //   }
-    // }
-    // console.log("logic",this.hand[1].name)
-    this.hand=this.hand.filter(card=>{
+    console.log("cardsPicked", $(cardsPicked).get())
+    console.log("cardSelected",cardSelected)
+    console.log('table',game.table)
+   //need to keep track of cards picked
+   //need to get object card played and push it in this.pickedCards
+   this.pickedCards.push(this.hand.filter(card=>card.name===cardSelected)[0])
+   
+   //need to get the object of every card picked and push them in this.pickedCards
+   for(var i=0; i<cardsPicked.length;i++){
+     for(var j=0; j<game.table.length;j++){
+       console.log('game.table[j] BEFORE IF STATEMENT and $(cardsPicked[i]).attr("data-card-name") ',game.table[j],$(cardsPicked[i]).attr("data-card-name") )
+       if($(cardsPicked[i]).attr("data-card-name")===game.table[j].name){
+        console.log('game.table[j] AFTER IF STATEMENT  ',game.table[j]) 
+        this.pickedCards.push(game.table[j])}
+     }
+   }
+   console.log("final pick",this.pickedCards)
+
+   this.hand=this.hand.filter(card=>{
+      
       return card.name!==cardSelected})
 
       for(var i=0; i<cardsPicked.length;i++){
+        this.pickedCards.push(cardsPicked[i]) 
   game.table = game.table.filter(card=>{
     return card.name!==$(cardsPicked[i]).attr("data-card-name")})
 }
