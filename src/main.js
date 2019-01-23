@@ -46,10 +46,232 @@ var game;
 var ai;
 $(document).ready(function() {
   $(".start").click(function() {
+    init();
+
+    giveCardPlayer();
+
+    giveCardAI();
+
+    giveCardPlayer();
+
+    giveCardAI();
+
+    giveCardPlayer();
+
+    giveCardAI();
+
+    putCardsOnTable();
+
+    //on click option to select card on hand
+    allowSelectCards();
+
+    //on click option in order to pick cards from table
+    allowPickCards();
+
+    //play card the button
+    playCardPlayer();
+  });
+});
+
+function aiGame() {
+  
+  var arrayMove = [];
+  for (var i = 0; i < ai.hand.length; i++) {
+    arrayMove.push(ai.checkAvailableMove(game.table, ai.hand[i]));
+  }
+ 
+  //if no moves available just add card to table
+  if (arrayMove.every(move => move.length === 0)) {
+    //pick a card to add to the table
+    console.log("NO PICKING AVAILABLE");
+   
+    //choose the one with the highest value
+    var cardToPlayPosition = 0;
+    if (ai.hand.length > 1) {
+      for (var i = 1; i < ai.hand.length; i++) {
+        if (ai.hand[i].value > ai.hand[cardToPlayPosition]) {
+          cardToPlayPosition = ai.hand[i];
+        }
+      }
+    }
+
+    //append the choosed card to the table
+    var cardToPlay = $(".hand-ai").children()[cardToPlayPosition];
+    $(cardToPlay).removeClass('ai-show-back')
+   setTimeout(function(){
+    $(".table").append(cardToPlay);
+    $(cardToPlay).unbind("click");
+    $(cardToPlay).removeClass("selected-card onclick-option");
+    $(cardToPlay).click(function(e) {
+      $(this).toggleClass("select-pick");
+    });
+    //update AI LOGIC 
+    ai.addCardToTable(ai.hand[cardToPlayPosition].name, game.table);
+    
+   },2000)
+    
+    //if there are at least 6 cards on the deck start a new turn
+    setTimeout(function(){
+      if(game.cards.length>=6 && ai.hand.length===0 && player.hand.length===0){
+        startNewTurn()
+      }else if(game.cards.length===0&& ai.hand.length===0 && player.hand.length===0){
+        alert("GAME END")
+        alert("Total score Player: "+player.scoreCurrentGame)
+        alert("Total score COMPUTER"+ai.scoreCurrentGame)
+        player.totalScore+=player.scoreCurrentGame
+        ai.totalScore+=ai.scoreCurrentGame
+        if(ai.totalScore>=21 && player.totalScore<21){
+          alert("YOU LOSE")
+        }
+        if(player.totalScore>=21 && ai.totalScore<21){
+          alert("YOU WON")
+        }
+        if(player.totalScore>=21 && ai.totalScore>=21){
+          if(player.totalScore>ai.totalScore){
+            alert("YOU WON")
+          }else if(player.totalScore<ai.totalScore){
+            alert("YOU LOSE")
+          }else{
+            //you need to start a new game
+          }
+        }
+        if(ai.totalScore<21 && player.totalScore<21){
+          //you need to start a new game
+        }
+
+        
+      }
+    },5000)
+   
+  }
+  //if there are moves available
+  else {
+    console.log("THERE ARE MOVES AVAILABLE");
+
+    
+
+    //get card to play (for now play the one can get card)
+    //find index card that can pick
+
+    var cardToPlay = arrayMove.indexOf(
+      arrayMove.filter(move => move.length > 0)[0]
+    );
+
+    //show card before to play it
+    $($(".hand-ai").children()[cardToPlay]).removeClass('ai-show-back')
+    setTimeout(function(){
+      //remove the played card from the hand
+    $($(".hand-ai").children()[cardToPlay]).remove();
+
+    //DOM
+    //get card to pick (for now play the one can get card)
+    var nameCardsToPick = [];
+
+    //array to pass to the logic
+    var cardPicked = [];
+
+    
+    for (var i = 0; i < arrayMove[cardToPlay][0].length; i++) {
+      nameCardsToPick.push(arrayMove[cardToPlay][0][i].name);
+    }
+    
+    var table = $(".table").children();
+    
+    for (var i = 0; i < nameCardsToPick.length; i++) {
+      for (var j = 0; j < table.length; j++) {
+        if ($(table[j]).attr("data-card-name") === nameCardsToPick[i]) {
+          cardPicked.push($(table[j]));
+          
+          $(table[j]).remove();
+        }
+      }
+    }
+    //update logic after card is played
+    ai.playCard(ai.hand[cardToPlay].name, cardPicked, game);
+
+    },2000)
+    
+    //if there are at least 6 cards on the deck and the players don't have any card on their hands start a new turn
+    setTimeout(function(){
+      if(game.cards.length>=6 && ai.hand.length===0 && player.hand.length===0){
+        startNewTurn()
+      }else if(game.cards.length===0&& ai.hand.length===0 && player.hand.length===0){
+        alert("GAME END")
+        alert("Total score Player: "+player.scoreCurrentGame)
+        alert("Total score COMPUTER"+ai.scoreCurrentGame)
+        player.totalScore+=player.scoreCurrentGame
+        ai.totalScore+=ai.scoreCurrentGame
+        if(ai.totalScore>=21 && player.totalScore<21){
+          alert("YOU LOSE")
+        }
+        if(player.totalScore>=21 && ai.totalScore<21){
+          alert("YOU WON")
+        }
+        if(player.totalScore>=21 && ai.totalScore>=21){
+          if(player.totalScore>ai.totalScore){
+            alert("YOU WON")
+          }else if(player.totalScore<ai.totalScore){
+            alert("YOU LOSE")
+          }else{
+            //you need to start a new game
+          }
+        }
+        if(ai.totalScore<21 && player.totalScore<21){
+          //you need to start a new game
+        }
+
+        
+      }
+    },5000)
+   
+    
+  }
+}
+
+////////////////////////GIVE CARD AI
+function giveCardAI() {
+  var card = $(".deck > .card-deck")[$(".deck > .card-deck").length - 1];
+  $(card).toggleClass("card-deck");
+  $(card).toggleClass("card-hand ai-show-back");
+  $(".hand-ai").append(card);
+  game.giveCard(ai);
+}
+
+//////////////////GIVE CARD PLAYER
+function giveCardPlayer() {
+  var CardPlayer = $(".deck > .card-deck")[$(".deck > .card-deck").length - 1];
+  $(".hand-player").append(CardPlayer);
+  $(CardPlayer).toggleClass("card-deck");
+  $(CardPlayer).toggleClass("card-hand onclick-option");
+  game.giveCard(player);
+}
+
+///////////////////////////MAKE CARD HAND PLAYER SELECTABLE
+function makeCardsPlayerSelectable() {
+  $(".onclick-option").click(function(e) {
+    // console.log('selected',e)
+
+    $(".selected-card").toggleClass("selected-card");
+
+    $(this).toggleClass("selected-card");
+  });
+}
+//in the begining of the game put 4 card on the table
+function putCardsOnTable() {
+  for (var i = 0; i < 4; i++) {
+    var cardTable = $(".deck > .card-deck")[$(".deck > .card-deck").length - 1];
+    $(cardTable).toggleClass("card-deck table-card");
+    $(cardTable).toggleClass("card-hand");
+    $(".table").append(cardTable);
+  }
+  game.putCardsOnTable();
+}
+
+function init() {
   game = new Scopa(cards);
   game.shuffle(cards);
   var html = "";
-
+  //card creation
   game.cards.forEach(function(pic) {
     html +=
       '<div class="card-deck" data-card-name="' +
@@ -66,297 +288,116 @@ $(document).ready(function() {
   html += "</div>";
   //make the deck
   $(".deck").html(html);
-
+  //create player 1
   player = new Player("player");
+  //create AI player
   ai = new Computer("ai");
+}
 
-  
-  giveCardPlayer()
+function allowSelectCards() {
+  $(".onclick-option").click(function(e) {
     
 
-    giveCardAI()
-    
+    $(".selected-card").toggleClass("selected-card");
 
-    giveCardPlayer()
-    
+    $(this).toggleClass("selected-card");
+  });
+}
 
-    giveCardAI()
-    
+function allowPickCards() {
+  $(".table-card").click(function(e) {
+    $(this).toggleClass("select-pick");
+  });
+}
 
-    giveCardPlayer()
-    
+function playCardPlayer() {
+  $(".play-card-button").click(function() {
+    var selected = $(".select-pick");
+    var valueCardPlayed = $(".selected-card")
+      .attr("data-card-name")
+      .split("")[0];
+    if (valueCardPlayed === "K") {
+      valueCardPlayed = 10;
+    }
+    if (valueCardPlayed === "Q") {
+      valueCardPlayed = 9;
+    }
+    if (valueCardPlayed === "J") {
+      valueCardPlayed = 8;
+    }
+    valueCardPlayed = parseInt(valueCardPlayed);
 
-    giveCardAI()
-    
-
-    var cardTableOne = $(".deck > .card-deck")[
-      $(".deck > .card-deck").length - 1
-    ];
-    $(cardTableOne).toggleClass("card-deck table-card");
-    $(cardTableOne).toggleClass("card-hand");
-    $(".table").append(cardTableOne);
-
-    var cardTableTwo = $(".deck > .card-deck")[
-      $(".deck > .card-deck").length - 1
-    ];
-    $(cardTableTwo).toggleClass("card-hand table-card");
-    $(cardTableTwo).toggleClass("card-deck");
-    $(".table").append(cardTableTwo);
-
-    var cardTableThree = $(".deck > .card-deck")[
-      $(".deck > .card-deck").length - 1
-    ];
-    $(cardTableThree).toggleClass("card-hand table-card");
-    $(cardTableThree).toggleClass("card-deck");
-    $(".table").append(cardTableThree);
-
-    var cardTableFour = $(".deck > .card-deck")[
-      $(".deck > .card-deck").length - 1
-    ];
-    $(cardTableFour).toggleClass("card-hand table-card");
-    $(cardTableFour).toggleClass("card-deck");
-    $(".table").append(cardTableFour);
-    game.putCardsOnTable();
-    //select card to play
-
-    $(".onclick-option").click(function(e) {
-      // console.log('selected',e)
-      
-      $(".selected-card").toggleClass("selected-card");
-
-      $(this).toggleClass("selected-card");
-    });
-
-    //select card to pick
-    $(".table-card").click(function(e) {
-      $(this).toggleClass("select-pick");
-    });
-
-    //play card
-    $(".play-card-button").click(function() {
-      
-      var selected = $(".select-pick");
-      var valueCardPlayed = $(".selected-card")
+    var valueSelected = 0;
+    for (var i = 0; i < selected.length; i++) {
+      var value = $(selected[i])
         .attr("data-card-name")
         .split("")[0];
-      if (valueCardPlayed === "K") {
-        valueCardPlayed = 10;
+      if (value === "K") {
+        value = 10;
       }
-      if (valueCardPlayed === "Q") {
-        valueCardPlayed = 9;
+      if (value === "Q") {
+        value = 9;
       }
-      if (valueCardPlayed === "J") {
-        valueCardPlayed = 8;
+      if (value === "J") {
+        value = 8;
       }
-      valueCardPlayed = parseInt(valueCardPlayed);
-
-      var valueSelected = 0;
-      for (var i = 0; i < selected.length; i++) {
-        var value = $(selected[i])
-          .attr("data-card-name")
-          .split("")[0];
-        if (value === "K") {
-          value = 10;
-        }
-        if (value === "Q") {
-          value = 9;
-        }
-        if (value === "J") {
-          value = 8;
-        }
-        valueSelected += parseInt(value);
-      }
-
-      var possiblePicks = player.checkAvailableMove(
-        game.table,
-        $(".selected-card").attr("data-card-name")
-      );
-      //if value picking = value card plyed go on
-      if (valueSelected === valueCardPlayed) {
-        // console.log("main", $(".selected-card").attr("data-card-name"));
-        console.log('cards picked from DOM PLAYER',$(".select-pick").toArray())
-        player.playCard(
-          $(".selected-card").attr("data-card-name"),
-          $(".select-pick"),
-          game
-        );
-        $(".selected-card").remove();
-        $(".select-pick").remove();
-        aiGame()
-      }
-      //if there are no available picking allow to just ADD card on the table
-      else if ($(".select-pick").length === 0 && possiblePicks.length === 0) {
-        player.addCardToTable(
-          $(".selected-card").attr("data-card-name"),
-          game.table
-        );
-        
-        //add card on table(DOM)
-        $(".table").append($(".selected-card"));
-        //add class table-card to new entry 
-        $(".selected-card").addClass('table-card')
-        //remove onlick attribute from new entry
-        
-        $($(".table-card")[$(".table-card").length-1]).unbind('click')
-        //remove class selected-card(for border highlight)
-        $(".selected-card").removeClass('selected-card onclick-option')
-        //add to the new entry the onclick option as pickable-card
-       $($(".table-card")[$(".table-card").length-1]).click(function(e) {
-          $(this).toggleClass("select-pick");
-        });
-        
-        //ai play
-        aiGame()
-       
-
-      } else {
-        alert("you have to pick up something... picking available");
-      }
-    });
-  });
-});
-
-function aiGame(){
-  
-  // console.log('move1',ai.checkAvailableMove(game.table,ai.hand[0]))
-  // console.log('move2',ai.checkAvailableMove(game.table,ai.hand[1])) 
-  // console.log('move3',ai.checkAvailableMove(game.table,ai.hand[2]))
-  // var move1 =ai.checkAvailableMove(game.table,ai.hand[0])
-  // var move2 =ai.checkAvailableMove(game.table,ai.hand[1])
-  // var move3=ai.checkAvailableMove(game.table,ai.hand[2])
-  var arrayMove = []
-  for(var i=0; i<ai.hand.length; i++){
-    arrayMove.push(ai.checkAvailableMove(game.table,ai.hand[i]))
-  }
-  // console.log(arrayMove.every(move=>move.length===0))
-  //if no moves available just add card to table
-if(arrayMove.every(move=>move.length===0)){
-
-//wich card??
-console.log("NO PICKING AVAILABLE")
-// console.log('ai hand, pick the greatest between:',ai.hand)
-// console.log(ai.hand.sort((a,b)=>b.value - a.value))
-
-//var cardToPlayPosition =ai.hand.indexOf(ai.hand.sort((a,b)=>b.value - a.value)[0])//check this the array stay sorted
-// console.log(cardToPlayPosition)
-var cardToPlayPosition=0
-if(ai.hand.length>1){
-  for(var i=1;i<ai.hand.length;i++){
-    if(ai.hand[i].value>ai.hand[cardToPlayPosition]){
-      cardToPlayPosition=ai.hand[i]
+      valueSelected += parseInt(value);
     }
-  }
-}
-var cardToPlay=$(".hand-ai").children()[cardToPlayPosition]
-// console.log(cardToPlay) 
-$(".table").append(cardToPlay)
-$(cardToPlay).unbind('click')
-$(cardToPlay).removeClass('selected-card onclick-option ai-show-back')
-$(cardToPlay).click(function(e) {
-  $(this).toggleClass("select-pick");
-});
-ai.addCardToTable(ai.hand[cardToPlayPosition].name,game.table)
 
+    var possiblePicks = player.checkAvailableMove(
+      game.table,
+      $(".selected-card").attr("data-card-name")
+    );
+    //if value picking = value card plyed go on
+    if (valueSelected === valueCardPlayed) {
+      //update LOGIC Player
+      player.playCard(
+        $(".selected-card").attr("data-card-name"),
+        $(".select-pick"),
+        game
+      );
+      $(".selected-card").remove();
+      $(".select-pick").remove();
+      aiGame();
+    }
+    //if there are no available picking allow to just ADD card on the table
+    else if ($(".select-pick").length === 0 && possiblePicks.length === 0) {
+      //update LOGIC player
+      player.addCardToTable(
+        $(".selected-card").attr("data-card-name"),
+        game.table
+      );
 
-}else
-//if there are moves available
-{
-  console.log('THERE ARE MOVES AVAILABLE')
-  
-  //left value table for each card
-//  var leftValueTable =ai.checkWhatLeft(arrayMove, game.table)
-//  console.log(leftValueTable)
- 
-//  console.log(leftValueTable.sort((a,b)=>b-a)[0])
-//  console.log(leftValueTable.indexOf(leftValueTable.sort((a,b)=>b-a)[0]))
-//  var positionCardToPlay=leftValueTable.indexOf(leftValueTable.sort((a,b)=>b-a)[0])
-
- //get card to play (for now play the one can get card)
- //find index card that can pick
- 
- var cardToPlay= arrayMove.indexOf(arrayMove.filter(move=>move.length>0)[0])
-//  console.log("cardToPlayposition", cardToPlay)
-//  console.log('card to play',$($(".hand-ai").children()[cardToPlay]))
-console.log('remove from DOM AI',$(".hand-ai").children()[cardToPlay])
-$($(".hand-ai").children()[cardToPlay]).remove()
-
-
-//DOM
- //get card to pick (for now play the one can get card)
-var nameCardsToPick=[]
-var cardPicked =[]
-
-// console.log(arrayMove[cardToPlay])
-for(var i=0; i<arrayMove[cardToPlay][0].length;i++){
-  nameCardsToPick.push(arrayMove[cardToPlay][0][i].name) 
-}
-// console.log(nameCardsToPick)
-var table = $('.table').children()
-// console.log(table)
-for(var i=0; i<nameCardsToPick.length;i++){
-  for(var j=0;j<table.length;j++){
-    if($(table[j]).attr("data-card-name")===nameCardsToPick[i]){
-      cardPicked.push($(table[j]))
-      console.log("REMOVE FROM TABLE DOM AI", $(table[j]))
-      $(table[j]).remove()}
-  }
-}
-// console.log('cardPicked FROM THE DOM ',cardPicked)
-ai.playCard(ai.hand[cardToPlay].name,cardPicked,game)
-//LOGIC
-
-// for(var i=0;i<nameCardsToPick.length;i++){
-//   for(var j=0; j<game.table.length;i++){
-//     if(nameCardsToPick[i]===game.table[j].)
-//   }
-// }
-
- 
- //get moves that leave tablevalue greater value on table
- 
-
-
-
-
-
- 
-
-}
-
-}
-
-
-////////////////////////GIVE CARD AI
-function giveCardAI(){
-  var card = $(".deck > .card-deck")[
-        $(".deck > .card-deck").length - 1
-      ];
-      $(card).toggleClass("card-deck");
-      $(card).toggleClass("card-hand ai-show-back");
-      $(".hand-ai").append(card);
-      game.giveCard(ai);
-  }
-  
-  //////////////////GIVE CARD PLAYER
-  function giveCardPlayer(){
-  var CardPlayer = $(".deck > .card-deck")[
-        $(".deck > .card-deck").length - 1
-      ];
-      $(".hand-player").append(CardPlayer);
-      $(CardPlayer).toggleClass("card-deck");
-      $(CardPlayer).toggleClass("card-hand onclick-option");
-      game.giveCard(player);
-  }
-  
-  ///////////////////////////MAKE CARD HAND PLAYER SELECTABLE
-  function makeCardsPlayerSelectable(){
-  $(".onclick-option").click(function(e) {
-        // console.log('selected',e)
-        
-        $(".selected-card").toggleClass("selected-card");
-  
-        $(this).toggleClass("selected-card");
+      //add card on table(DOM)
+      $(".table").append($(".selected-card"));
+      //add class table-card to new entry
+      $(".selected-card").addClass("table-card");
+      //remove onlick attribute from new entry
+      $($(".table-card")[$(".table-card").length - 1]).unbind("click");
+      //remove class selected-card(for border highlight) and onclick-option
+      $(".selected-card").removeClass("selected-card onclick-option");
+      //add to the new entry the onclick option as pickable-card
+      $($(".table-card")[$(".table-card").length - 1]).click(function(e) {
+        $(this).toggleClass("select-pick");
       });
-  
-  }
-  
+
+      //ai play
+      aiGame();
+    } else {
+      //You can't add a card if on the table there is a combination of card that sum up the value of the card
+      alert("you have to pick up something... picking available");
+    }
+  });
+}
+
+
+function startNewTurn(){
+  giveCardPlayer()
+  giveCardAI()
+  giveCardPlayer()
+  giveCardAI()
+  giveCardPlayer()
+  giveCardAI()
+  makeCardsPlayerSelectable()
+}
+

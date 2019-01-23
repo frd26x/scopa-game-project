@@ -47,6 +47,42 @@ class Scopa {
 
     return total
   }
+  getTotalScore(player,ai){
+    //check Prime, if equal nobody gain any point
+var playerPrime = this.checkHighestPrime(player.pickedCards)
+var aiPrime = this.checkHighestPrime(ai.pickedCards)
+if(playerPrime>aiPrime){
+  player.scoreCurrentGame++
+}else if(playerPrime<aiPrime){
+  aiPrime.scoreCurrentGame++
+}
+
+//check who has more card
+if(player.pickedCards.length>ai.pickedCards.length){
+  player.scoreCurrentGame++
+}else if(player.pickedCards.length>ai.pickedCards.length){
+  ai.scoreCurrentGame++
+}
+
+//check who has seven of diamonds
+if(player.sevenDiamonds){
+  player.scoreCurrentGame++
+}else{
+  ai.scoreCurrentGame++
+}
+
+//check who has more diamonds
+var playerDiamonds = player.pickedCards.filter(x=>x.name.split("")[1]==="D").length
+var aiDiamonds = ai.pickedCards.filter(x=>x.name.split("")[1]==="D").length
+if(playerDiamonds>aiDiamonds){
+  player.scoreCurrentGame++
+}else if(playerDiamonds<aiDiamonds){
+  ai.scoreCurrentGame++
+
+}
+// return [{playerDiamonds:playerDiamonds, playerPrime:playerPrime},{aiDiamonds:aiDiamonds, aiPrime:aiPrime}]
+
+  }
 
 
 }

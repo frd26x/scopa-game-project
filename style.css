@@ -39,20 +39,27 @@
 .hand-ai{
   position: absolute;
   left:35%;
-  bottom:70%;
+  bottom:80%;
   width: 30%;
 }
 .hand-player{
   position: absolute;
-  left:35%;
-  top:70%;
-  width: 30%;
+  left:30%;
+  top:56%;
+  width: 40%;
 }
-
+.pick-ai{
+  position: absolute;
+  left:15%;
+  bottom:80%;
+  width: 100px;
+  height: 145px;
+  background-size: cover !important;
+}
 .pick-player{
   position: absolute;
   right:15%;
-  top:70%;
+  top:56%;
   width: 100px;
   height: 145px;
   background-size: cover !important;
@@ -70,7 +77,7 @@
 
 .table{
   position: absolute;
-  bottom: 39%;
+  top: 32%;
   left: 30%;
   width: 50%;
 }
@@ -111,5 +118,7 @@ body{
 }
 
 .play-card-button{
-  margin-left: 3%
+  margin-left: 3%;
+  float: left;
+  
 }
