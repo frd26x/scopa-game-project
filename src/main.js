@@ -368,6 +368,7 @@ var selectForLogic = player.hand.filter(card=>card.name!=$(selected).attr("data-
       aiGame();
     } else {
       //You can't add a card if on the table there is a combination of card that sum up the value of the card
+      
       $(".alert-move").toggle()
       setTimeout(function(){
         $(".alert-move").toggle()
@@ -409,8 +410,8 @@ function checkGameOver(){
     $("#ai-score").html(ai.scoreCurrentGame)
     $("#scopa-player").html(player.scopa)
     $("#scopa-ai").html(ai.scopa)
-    $("#cards-player").html(player.pickedCards)
-    $("#cards-ai").html(ai.pickedCards)
+    $("#cards-player").html(player.pickedCards.length)
+    $("#cards-ai").html(ai.pickedCards.length)
     $("#diamonds-player").html(score[0].playerDiamonds)
     $("#diamonds-ai").html(score[1].aiDiamonds)
     $("#7ofDiamonds-player").html(player.sevenDiamonds)

@@ -16,7 +16,7 @@ class Player {
       this.hand.filter(card => card.name === cardSelected)[0]
     );
     if(cardSelected==="7D"){
-      this.sevenDiamonds==="yes"
+      this.sevenDiamonds="yes"
     }
 
     //need to get the object of every card picked and push them in this.pickedCards
