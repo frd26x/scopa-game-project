@@ -261,9 +261,8 @@ function allowPickCards() {
 function playCardPlayer() {
   $(".play-card-button").click(function() {
     var selected = $(".select-pick");
-    var valueCardPlayed = $(".selected-card")
-      .attr("data-card-name")
-      .split("")[0];
+    
+    var valueCardPlayed = $(".selected-card").attr("data-card-name").split("")[0];
     if (valueCardPlayed === "K") {
       valueCardPlayed = 10;
     }
@@ -291,13 +290,16 @@ function playCardPlayer() {
       }
       valueSelected += parseInt(value);
     }
-
+var selectForLogic = player.hand.filter(card=>card.name!=$(selected).attr("data-card-name"))[0]
     var possiblePicks = player.checkAvailableMove(
       game.table,
-      $(".selected-card").attr("data-card-name")
+      selectForLogic
     );
+    console.log("possiblePicks",possiblePicks)
+    console.log("valueSelected === valueCardPlayed ",valueSelected === valueCardPlayed)
     //if value picking = value card plyed go on
     if (valueSelected === valueCardPlayed) {
+      console.log("ALLOWED PICK")
       //update LOGIC Player
       player.playCard(
         $(".selected-card").attr("data-card-name"),
@@ -313,7 +315,9 @@ function playCardPlayer() {
       aiGame();
     }
     //if there are no available picking allow to just ADD card on the table
-    else if ($(".select-pick").length === 0 && possiblePicks.length === 0) {
+    else if ($(".select-pick").length === 0 && possiblePicks.length === 0) {  
+      console.log("there are no picking available",$(".select-pick").length === 0 && possiblePicks.length === 0)
+      console.log("possiblePicks", possiblePicks)
       //update LOGIC player
       player.addCardToTable(
         $(".selected-card").attr("data-card-name"),
@@ -385,7 +389,7 @@ function checkGameOver(){
     $("#7ofDiamonds-player").html(player.sevenDiamonds)
     $("#7ofDiamonds-ai").html(ai.sevenDiamonds)
     $("#prime-player").html(score[0].playerPrime)
-    $("#prime-player").html(score[1].playerPrime)
+    $("#prime-ai").html(score[1].aiPrime)
 
     $("#overallScore-player").html(player.totalScore)
     $("#overallScore-ai").html(ai.totalScore)
@@ -428,6 +432,13 @@ game.table =[]
 game.card=cards
 player.hand=[]
 ai.hand=[]
+
+//remove all the cards from the dom
+$($(".table").children()).remove()
+$($(".hand-player").children()).remove()
+$($(".hand-ai").children()).remove()
+
+
 
 
 }
