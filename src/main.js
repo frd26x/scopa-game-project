@@ -71,6 +71,10 @@ $(document).ready(function() {
 
     //play card the button
     playCardPlayer();
+
+    $(".help-button").click(function(){
+      $(".help").toggle()
+    })
   });
 });
 

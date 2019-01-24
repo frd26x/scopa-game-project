@@ -206,3 +206,19 @@ th{
   left: 70%;
   display: none;
 }
+
+.help{
+  background-color:grey;
+  width: 30%;
+  font-family: 'Courier New', Courier, monospace;
+ position: absolute;
+ left: 70%
+}
+
+.help-button{
+  position: absolute;
+  border-radius: 60%;
+  padding: 3%;
+  top: 15%;
+  left: 0.5%
+}
