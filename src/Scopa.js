@@ -55,7 +55,7 @@ var aiPrime = this.checkHighestPrime(ai.pickedCards)
 if(playerPrime>aiPrime){
   player.scoreCurrentGame++
 }else if(playerPrime<aiPrime){
-  aiPrime.scoreCurrentGame++
+  ai.scoreCurrentGame++
 }
 
 //check who has more card
@@ -64,6 +64,8 @@ if(player.pickedCards.length>ai.pickedCards.length){
 }else if(player.pickedCards.length>ai.pickedCards.length){
   ai.scoreCurrentGame++
 }
+
+console.log(player.pickedCards.length,ai.pickedCards.length)
 
 //check who has seven of diamonds
 if(player.sevenDiamonds){

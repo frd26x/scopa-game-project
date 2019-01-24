@@ -107,6 +107,9 @@ function aiGame() {
     });
     //update AI LOGIC 
     ai.addCardToTable(ai.hand[cardToPlayPosition].name, game.table);
+    if(game.cards.length===0 && player.hand.length===0 && ai.hand.length===0){
+      game.cleanTable(game.whoPickLastCard)
+    }
     
    },2000)
     
@@ -116,7 +119,7 @@ function aiGame() {
         startNewTurn()
       }else if(game.cards.length===0&& ai.hand.length===0 && player.hand.length===0){
         //who has picked the last card get all the card left on the table
-        game.cleanTable(game.whoPickLastCard)
+        // game.cleanTable(game.whoPickLastCard)
         //remove cards from table
         $(".table").remove()
 
@@ -197,6 +200,9 @@ function aiGame() {
     //update logic after card is played
     ai.playCard(ai.hand[cardToPlay].name, cardPicked, game);
     game.whoPickLastCard=ai
+    if(game.cards.length===0 && player.hand.length===0 && ai.hand.length===0){
+      game.cleanTable(game.whoPickLastCard)
+    }
 
     },2000)
     
@@ -375,6 +381,9 @@ function playCardPlayer() {
       $(".selected-card").remove();
       $(".select-pick").remove();
       game.whoPickLastCard=player
+      if(game.cards.length===0 && player.hand.length===0 && ai.hand.length===0){
+        game.cleanTable(game.whoPickLastCard)
+      }
       aiGame();
     }
     //if there are no available picking allow to just ADD card on the table
@@ -384,6 +393,9 @@ function playCardPlayer() {
         $(".selected-card").attr("data-card-name"),
         game.table
       );
+      if(game.cards.length===0 && player.hand.length===0 && ai.hand.length===0){
+        game.cleanTable(game.whoPickLastCard)
+      }
 
       //add card on table(DOM)
       $(".table").append($(".selected-card"));
