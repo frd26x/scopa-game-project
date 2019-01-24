@@ -317,7 +317,8 @@ var selectForLogic = player.hand.filter(card=>card.name!=$(selected).attr("data-
       game.table,
       selectForLogic
     );
-    possiblePicks=possiblePicks.filter(x=>x.value!=undefined)
+    // possiblePicks=possiblePicks.filter(x=>x.value!=undefined)
+   console.log('possible picks', possiblePicks) 
     //if value picking = value card plyed go on
     if (valueSelected === valueCardPlayed) {
       
@@ -398,8 +399,8 @@ function checkGameOver(){
     // alert("GAME END")
     //update score current game
     var score = game.getTotalScore(player,ai)
-    alert("Total score Player: "+player.scoreCurrentGame)
-    alert("Total score COMPUTER"+ai.scoreCurrentGame)
+    // alert("Total score Player: "+player.scoreCurrentGame)
+    // alert("Total score COMPUTER"+ai.scoreCurrentGame)
     player.totalScore+=player.scoreCurrentGame
     ai.totalScore+=ai.scoreCurrentGame
     $("#player-name-score").html(player.name)
