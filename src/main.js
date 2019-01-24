@@ -114,44 +114,7 @@ function aiGame() {
    },2000)
     
     //if there are at least 6 cards on the deck start a new turn
-    setTimeout(function(){
-      if(game.cards.length>=6 && ai.hand.length===0 && player.hand.length===0){
-        startNewTurn()
-      }else if(game.cards.length===0&& ai.hand.length===0 && player.hand.length===0){
-        //who has picked the last card get all the card left on the table
-        // game.cleanTable(game.whoPickLastCard)
-        //remove cards from table
-        $(".table").remove()
-
-        alert("GAME END")
-        //update score current game
-        game.getTotalScore(player,ai)
-        alert("Total score Player: "+player.scoreCurrentGame)
-        alert("Total score COMPUTER"+ai.scoreCurrentGame)
-        player.totalScore+=player.scoreCurrentGame
-        ai.totalScore+=ai.scoreCurrentGame
-        if(ai.totalScore>=21 && player.totalScore<21){
-          alert("YOU LOSE")
-        }
-        if(player.totalScore>=21 && ai.totalScore<21){
-          alert("YOU WON")
-        }
-        if(player.totalScore>=21 && ai.totalScore>=21){
-          if(player.totalScore>ai.totalScore){
-            alert("YOU WON")
-          }else if(player.totalScore<ai.totalScore){
-            alert("YOU LOSE")
-          }else{
-            //you need to start a new game
-          }
-        }
-        if(ai.totalScore<21 && player.totalScore<21){
-          //you need to start a new game
-        }
-
-        
-      }
-    },5000)
+    setTimeout(checkGameOver,5000)
    
    
   }
@@ -207,44 +170,7 @@ function aiGame() {
     },2000)
     
     //if there are at least 6 cards on the deck and the players don't have any card on their hands start a new turn
-    setTimeout(function(){
-      if(game.cards.length>=6 && ai.hand.length===0 && player.hand.length===0){
-        startNewTurn()
-      }else if(game.cards.length===0&& ai.hand.length===0 && player.hand.length===0){
-        //who has picked the last card get all the card left on the table
-        game.cleanTable(game.whoPickLastCard)
-        //remove cards from table
-        $(".table").remove()
-
-        alert("GAME END")
-        //update score current game
-        game.getTotalScore(player,ai)
-        alert("Total score Player: "+player.scoreCurrentGame)
-        alert("Total score COMPUTER"+ai.scoreCurrentGame)
-        player.totalScore+=player.scoreCurrentGame
-        ai.totalScore+=ai.scoreCurrentGame
-        if(ai.totalScore>=21 && player.totalScore<21){
-          alert("YOU LOSE")
-        }
-        if(player.totalScore>=21 && ai.totalScore<21){
-          alert("YOU WON")
-        }
-        if(player.totalScore>=21 && ai.totalScore>=21){
-          if(player.totalScore>ai.totalScore){
-            alert("YOU WON")
-          }else if(player.totalScore<ai.totalScore){
-            alert("YOU LOSE")
-          }else{
-            //you need to start a new game
-          }
-        }
-        if(ai.totalScore<21 && player.totalScore<21){
-          //you need to start a new game
-        }
-
-        
-      }
-    },5000)
+    setTimeout(checkGameOver,5000)
    
     
   }
@@ -430,6 +356,78 @@ function startNewTurn(){
   makeCardsPlayerSelectable()
 }
 
-function cleanTableDOM(){
-  
+function checkGameOver(){
+  if(game.cards.length>=6 && ai.hand.length===0 && player.hand.length===0){
+    startNewTurn()
+  }else if(game.cards.length===0&& ai.hand.length===0 && player.hand.length===0){
+    //who has picked the last card get all the card left on the table
+    game.cleanTable(game.whoPickLastCard)
+    //remove cards from table
+    $(".table").remove()
+
+    alert("GAME END")
+    //update score current game
+    var score = game.getTotalScore(player,ai)
+    alert("Total score Player: "+player.scoreCurrentGame)
+    alert("Total score COMPUTER"+ai.scoreCurrentGame)
+    player.totalScore+=player.scoreCurrentGame
+    ai.totalScore+=ai.scoreCurrentGame
+    $("#player-name-score").html(player.name)
+    $("#ai-name-score").html(ai.name)
+    $("#player-score").html(player.scoreCurrentGame)
+    $("#ai-score").html(ai.scoreCurrentGame)
+    $("#scopa-player").html(player.scopa)
+    $("#scopa-ai").html(ai.scopa)
+    $("#cards-player").html(player.pickedCards)
+    $("#cards-ai").html(ai.pickedCards)
+    $("#diamonds-player").html(score[0].playerDiamonds)
+    $("#diamonds-ai").html(score[1].aiDiamonds)
+    $("#7ofDiamonds-player").html(player.sevenDiamonds)
+    $("#7ofDiamonds-ai").html(ai.sevenDiamonds)
+    $("#prime-player").html(score[0].playerPrime)
+    $("#prime-player").html(score[1].playerPrime)
+
+    $("#overallScore-player").html(player.totalScore)
+    $("#overallScore-ai").html(ai.totalScore)
+    $(".display-scores").toggleClass("hide-score")
+
+
+
+
+
+
+
+    if(ai.totalScore>=21 && player.totalScore<21){
+      alert("YOU LOSE")
+    }
+    if(player.totalScore>=21 && ai.totalScore<21){
+      alert("YOU WON")
+    }
+    if(player.totalScore>=21 && ai.totalScore>=21){
+      if(player.totalScore>ai.totalScore){
+        alert("YOU WON")
+      }else if(player.totalScore<ai.totalScore){
+        alert("YOU LOSE")
+      }else{
+        //you need to start a new game
+      }
+    }
+    if(ai.totalScore<21 && player.totalScore<21){
+      //you need to start a new game
+    }
+
+    
+  }
+}
+
+
+//to use when in the begining of the game there are 3 cards with the same value
+function reset(){
+
+game.table =[]
+game.card=cards
+player.hand=[]
+ai.hand=[]
+
+
 }

@@ -6,7 +6,8 @@ class Player {
     this.pickedCards = [];
     this.scoreCurrentGame = 0;
     this.totalScore = 0;
-    this.sevenDiamonds = false;
+    this.sevenDiamonds = "no";
+    this.scopa=0
   }
   playCard(cardSelected, cardsPicked, game) {
     //need to keep track of cards picked
@@ -14,6 +15,9 @@ class Player {
     this.pickedCards.push(
       this.hand.filter(card => card.name === cardSelected)[0]
     );
+    if(cardSelected==="7D"){
+      this.sevenDiamonds==="yes"
+    }
 
     //need to get the object of every card picked and push them in this.pickedCards
     for (var i = 0; i < cardsPicked.length; i++) {
@@ -29,6 +33,9 @@ class Player {
     });
 
     for (var i = 0; i < cardsPicked.length; i++) {
+      if($(cardsPicked[i]).attr("data-card-name")==="7D"){
+        this.sevenDiamonds="yes"
+      }
       this.pickedCards.push(cardsPicked[i]);
       game.table = game.table.filter(card => {
         return card.name !== $(cardsPicked[i]).attr("data-card-name");
@@ -36,9 +43,11 @@ class Player {
 
       if (game.table.length === 0) {
         this.scoreCurrentGame++;
+        this.scopa++
         alert("SCOPA +1PT");
       }
     }
+    
     this.cleanPicking()
     
   }
@@ -53,6 +62,7 @@ class Player {
     
   }
   checkAvailableMove(table, cardPlayed) {
+    //find all possible combination between the cards on the table
     function combine(a, min) {
       var fn = function(n, src, got, all) {
         if (n == 0) {

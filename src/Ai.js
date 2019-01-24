@@ -6,9 +6,10 @@ class Computer extends Player {
     pickedCards = [],
     scoreCurrentGame = 0,
     totalScore = 0,
-    sevenDiamonds = false
+    sevenDiamonds = false,
+    scopa=0
 
   ) {
-    super(name, hand, dealer, pickedCards, scoreCurrentGame, totalScore, sevenDiamonds);
+    super(name, hand, dealer, pickedCards, scoreCurrentGame, totalScore, sevenDiamonds,scopa);
   }
 }

@@ -65,7 +65,7 @@ if(player.pickedCards.length>ai.pickedCards.length){
   ai.scoreCurrentGame++
 }
 
-console.log(player.pickedCards.length,ai.pickedCards.length)
+
 
 //check who has seven of diamonds
 if(player.sevenDiamonds){
