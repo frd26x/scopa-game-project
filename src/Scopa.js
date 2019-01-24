@@ -2,6 +2,7 @@ class Scopa {
   constructor(cards) {
     this.cards = cards;
     this.table = [];
+    this.whoPickLastCard = undefined
   }
   shuffle(array) {
     var m = array.length,
@@ -80,8 +81,14 @@ if(playerDiamonds>aiDiamonds){
   ai.scoreCurrentGame++
 
 }
-// return [{playerDiamonds:playerDiamonds, playerPrime:playerPrime},{aiDiamonds:aiDiamonds, aiPrime:aiPrime}]
+return [{playerDiamonds:playerDiamonds, playerPrime:playerPrime},{aiDiamonds:aiDiamonds, aiPrime:aiPrime}]
 
+  }
+
+  cleanTable(whoPickLastCard){
+    for(var i=0; i<this.table.length; i++){
+      whoPickLastCard.pickedCards.push(this.table[i])
+    }
   }
 
 

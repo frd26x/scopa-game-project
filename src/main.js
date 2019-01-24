@@ -115,7 +115,14 @@ function aiGame() {
       if(game.cards.length>=6 && ai.hand.length===0 && player.hand.length===0){
         startNewTurn()
       }else if(game.cards.length===0&& ai.hand.length===0 && player.hand.length===0){
+        //who has picked the last card get all the card left on the table
+        game.cleanTable(game.whoPickLastCard)
+        //remove cards from table
+        $(".table").remove()
+
         alert("GAME END")
+        //update score current game
+        game.getTotalScore(player,ai)
         alert("Total score Player: "+player.scoreCurrentGame)
         alert("Total score COMPUTER"+ai.scoreCurrentGame)
         player.totalScore+=player.scoreCurrentGame
@@ -142,6 +149,7 @@ function aiGame() {
         
       }
     },5000)
+   
    
   }
   //if there are moves available
@@ -188,6 +196,7 @@ function aiGame() {
     }
     //update logic after card is played
     ai.playCard(ai.hand[cardToPlay].name, cardPicked, game);
+    game.whoPickLastCard=ai
 
     },2000)
     
@@ -196,7 +205,14 @@ function aiGame() {
       if(game.cards.length>=6 && ai.hand.length===0 && player.hand.length===0){
         startNewTurn()
       }else if(game.cards.length===0&& ai.hand.length===0 && player.hand.length===0){
+        //who has picked the last card get all the card left on the table
+        game.cleanTable(game.whoPickLastCard)
+        //remove cards from table
+        $(".table").remove()
+
         alert("GAME END")
+        //update score current game
+        game.getTotalScore(player,ai)
         alert("Total score Player: "+player.scoreCurrentGame)
         alert("Total score COMPUTER"+ai.scoreCurrentGame)
         player.totalScore+=player.scoreCurrentGame
@@ -358,6 +374,7 @@ function playCardPlayer() {
       );
       $(".selected-card").remove();
       $(".select-pick").remove();
+      game.whoPickLastCard=player
       aiGame();
     }
     //if there are no available picking allow to just ADD card on the table
@@ -401,3 +418,6 @@ function startNewTurn(){
   makeCardsPlayerSelectable()
 }
 
+function cleanTableDOM(){
+  
+}
