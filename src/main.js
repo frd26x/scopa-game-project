@@ -297,22 +297,25 @@ function playCardPlayer() {
     valueCardPlayed = parseInt(valueCardPlayed);
 
     var valueSelected = 0;
-    for (var i = 0; i < selected.length; i++) {
-      var value = $(selected[i])
-        .attr("data-card-name")
-        .split("")[0];
-      if (value === "K") {
-        value = 10;
+   
+      for (var i = 0; i < selected.length; i++) {
+        var value = $(selected[i])
+          .attr("data-card-name")
+          .split("")[0];
+        if (value === "K") {
+          value = 10;
+        }
+        if (value === "Q") {
+          value = 9;
+        }
+        if (value === "J") {
+          value = 8;
+        }
+        valueSelected += parseInt(value);
       }
-      if (value === "Q") {
-        value = 9;
-      }
-      if (value === "J") {
-        value = 8;
-      }
-      valueSelected += parseInt(value);
-    }
-var selectForLogic = player.hand.filter(card=>card.name!=$(selected).attr("data-card-name"))[0]
+    
+    
+var selectForLogic = player.hand.filter(card=>card.name==$(".selected-card").attr("data-card-name"))[0]
     var possiblePicks = player.checkAvailableMove(
       game.table,
       selectForLogic

@@ -65,6 +65,7 @@ class Player {
     
   }
   checkAvailableMove(table, cardPlayed) {
+  
    
     //find all possible combination between the cards on the table
     function combine(a, min) {
