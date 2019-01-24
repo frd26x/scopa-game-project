@@ -395,7 +395,7 @@ function checkGameOver(){
     //remove cards from table
     $(".table").remove()
 
-    alert("GAME END")
+    // alert("GAME END")
     //update score current game
     var score = game.getTotalScore(player,ai)
     alert("Total score Player: "+player.scoreCurrentGame)
@@ -428,16 +428,16 @@ function checkGameOver(){
 
 
     if(ai.totalScore>=21 && player.totalScore<21){
-      alert("YOU LOSE")
+      // alert("YOU LOSE")
     }
     if(player.totalScore>=21 && ai.totalScore<21){
-      alert("YOU WON")
+      // alert("YOU WON")
     }
     if(player.totalScore>=21 && ai.totalScore>=21){
       if(player.totalScore>ai.totalScore){
-        alert("YOU WON")
+        // alert("YOU WON")
       }else if(player.totalScore<ai.totalScore){
-        alert("YOU LOSE")
+        // alert("YOU LOSE")
       }else{
         //you need to start a new game
       }
