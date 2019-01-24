@@ -71,8 +71,36 @@
   position: absolute;
   left: 50px;
   top:100px;
+
+
+  /* 
+  MOVE-CARD-FROM-FIRST-DECK
+  MOVE-CARD-FROM-PLAYER-TABLE
+  MOVE-CARD-FROM-TABLE-STACK
+  MOVE-CARD-FROM-AI-TABLE
+  MOVE-CARD-FROM-AI-STACK
+   */
   
   background-size: cover !important;
+  
+
+}
+ .move-from-deck-to-table{
+  animation-name: MOVE-CARD-FROM-FIRST-DECK;
+  animation-duration: 2s;
+  animation-timing-function: ease-in;
+  animation-iteration-count: 1;
+} 
+
+
+.alert-move{
+  background-color:red;
+  width: 20%;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  position: absolute;
+  left:58%;
+  top: 25%;
+  display: none;
 }
 
 .table{
@@ -100,9 +128,9 @@
 
 
 
-.move-handPlayer-position-one{
+/* .move-handPlayer-position-one{
   transform: translate(350px)
-}
+} */
 
 body{
   
@@ -117,33 +145,64 @@ body{
   border: 4px solid red;
 }
 
+.select-pick-ai{
+  border: 4px solid red;
+}
+
 .play-card-button{
   margin-left: 3%;
   float: left;
+  background-color: rgb(179, 37, 37);
+  color: white;
+  border-radius: 70%;
+  border: 0px;
+
   
 }
 
 .display-scores{
   position: absolute;
-  left:30%;
-  top:30%;
-  background-color:green;
+  left:60%;
+  top:10%;
+  background-color:rgb(179, 37, 37);
   font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
   z-index: 2;
+  color: white;
 }
 
 td:first-child{
   font-weight: bold;
 }
-tr{
+td{
   padding: 4%;
   border:1px solid black;
+  margin:12%;
 }
 
 th{
-  padding: 4%;
+  margin: 4%;
 }
 
 .hide-score{
+  display: none;
+}
+
+
+.start{
+  background-color: green;
+  color: aliceblue;
+  border-radius: 80%;
+  padding: 2%;
+  border-color: rgb(25, 59, 25)
+}
+
+.scopa-alert{
+  background-color: red;
+  color: white;
+  position: absolute;
+  padding: 5%;
+  font-family: 'Courier New', Courier, monospace;
+  top: 30%;
+  left: 70%;
   display: none;
 }

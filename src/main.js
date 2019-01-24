@@ -47,6 +47,7 @@ var ai;
 $(document).ready(function() {
   $(".start").click(function() {
     init();
+    // setTimeout(giveCardPlayer,500)
 
     giveCardPlayer();
 
@@ -135,7 +136,10 @@ function aiGame() {
     $($(".hand-ai").children()[cardToPlay]).removeClass('ai-show-back')
     setTimeout(function(){
       //remove the played card from the hand
-    $($(".hand-ai").children()[cardToPlay]).remove();
+      
+    
+      
+    
 
     //DOM
     //get card to pick (for now play the one can get card)
@@ -150,18 +154,33 @@ function aiGame() {
     }
     
     var table = $(".table").children();
-    
+    var tableCardToRemove=[]
     for (var i = 0; i < nameCardsToPick.length; i++) {
       for (var j = 0; j < table.length; j++) {
         if ($(table[j]).attr("data-card-name") === nameCardsToPick[i]) {
+          $(table[j]).addClass("select-pick-ai")
           cardPicked.push($(table[j]));
           
-          $(table[j]).remove();
+          
+          tableCardToRemove.push(table[j]);
+
+          
+         
         }
       }
     }
+    setTimeout(function(){
+for(var i=0; i<tableCardToRemove.length;i++){
+  $(tableCardToRemove[i]).remove()
+}
+$($(".hand-ai").children()[cardToPlay]).remove();
+    },1500)
+
     //update logic after card is played
     ai.playCard(ai.hand[cardToPlay].name, cardPicked, game);
+    if(ai.pickedCards.length>1){
+      $(".pick-ai").removeClass("hide-score")
+    }
     game.whoPickLastCard=ai
     if(game.cards.length===0 && player.hand.length===0 && ai.hand.length===0){
       game.cleanTable(game.whoPickLastCard)
@@ -206,11 +225,14 @@ function makeCardsPlayerSelectable() {
 }
 //in the begining of the game put 4 card on the table
 function putCardsOnTable() {
+  
   for (var i = 0; i < 4; i++) {
     var cardTable = $(".deck > .card-deck")[$(".deck > .card-deck").length - 1];
     $(cardTable).toggleClass("card-deck table-card");
     $(cardTable).toggleClass("card-hand");
+  //  setTimeout(function(){
     $(".table").append(cardTable);
+  //  },500)
   }
   game.putCardsOnTable();
 }
@@ -295,11 +317,10 @@ var selectForLogic = player.hand.filter(card=>card.name!=$(selected).attr("data-
       game.table,
       selectForLogic
     );
-    console.log("possiblePicks",possiblePicks)
-    console.log("valueSelected === valueCardPlayed ",valueSelected === valueCardPlayed)
+    possiblePicks=possiblePicks.filter(x=>x.value!=undefined)
     //if value picking = value card plyed go on
     if (valueSelected === valueCardPlayed) {
-      console.log("ALLOWED PICK")
+      
       //update LOGIC Player
       player.playCard(
         $(".selected-card").attr("data-card-name"),
@@ -312,12 +333,14 @@ var selectForLogic = player.hand.filter(card=>card.name!=$(selected).attr("data-
       if(game.cards.length===0 && player.hand.length===0 && ai.hand.length===0){
         game.cleanTable(game.whoPickLastCard)
       }
+      if(player.pickedCards.length>1){
+        $(".pick-player").removeClass("hide-score")
+      }
       aiGame();
     }
     //if there are no available picking allow to just ADD card on the table
     else if ($(".select-pick").length === 0 && possiblePicks.length === 0) {  
-      console.log("there are no picking available",$(".select-pick").length === 0 && possiblePicks.length === 0)
-      console.log("possiblePicks", possiblePicks)
+      
       //update LOGIC player
       player.addCardToTable(
         $(".selected-card").attr("data-card-name"),
@@ -344,7 +367,10 @@ var selectForLogic = player.hand.filter(card=>card.name!=$(selected).attr("data-
       aiGame();
     } else {
       //You can't add a card if on the table there is a combination of card that sum up the value of the card
-      alert("you have to pick up something... picking available");
+      $(".alert-move").toggle()
+      setTimeout(function(){
+        $(".alert-move").toggle()
+      },4000)
     }
   });
 }

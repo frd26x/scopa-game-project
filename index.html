@@ -16,10 +16,13 @@
 <div class="hand-player"> <button class="play-card-button">Play</button> </div>
 <div class="hand-ai"></div>
 <div class="table"></div>
-<div class="pick-player" style="background: url(images/bg.jpg) no-repeat"></div>
-<div class="pick-ai" style="background: url(images/bg.jpg) no-repeat"></div>
+<div class="pick-player hide-score" style="background: url(images/bg.jpg) no-repeat"></div>
+<div class="pick-ai hide-score" style="background: url(images/bg.jpg) no-repeat"></div>
 <div class="card-played"></div>
 <button class="start">START</button>
+<div class="scopa-alert">
+  SCOPA +1pt
+</div>
 
 <table class="display-scores hide-score">
 	<tr>
@@ -63,6 +66,10 @@
 		<td id="overallScore-ai" headers="ai-name-score">18</td>
 	</tr>
 </table>
+
+<div class="alert-move">
+  You can't add a card on the table if on the <br> table there is a combination that sum up to the value of the card
+</div>
 
 <script
   src="https://code.jquery.com/jquery-3.3.1.min.js"

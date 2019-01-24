@@ -44,7 +44,10 @@ class Player {
       if (game.table.length === 0) {
         this.scoreCurrentGame++;
         this.scopa++
-        alert("SCOPA +1PT");
+        $('.scopa-alert').toggle()
+        setTimeout(function(){
+          $('.scopa-alert').toggle()
+        },2000)
       }
     }
     
@@ -62,6 +65,7 @@ class Player {
     
   }
   checkAvailableMove(table, cardPlayed) {
+   
     //find all possible combination between the cards on the table
     function combine(a, min) {
       var fn = function(n, src, got, all) {
@@ -109,7 +113,7 @@ class Player {
           availablePicks.push(cardCombination);
       });
     }
-
+console.log(availablePicks)
     //if there are not available pick you can just add the card on the table
     if (availablePicks.length > 0) {
       return availablePicks;
