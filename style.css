@@ -218,7 +218,7 @@ th{
 .help-button{
   position: absolute;
   border-radius: 60%;
-  padding: 3%;
+  padding: 2%;
   top: 15%;
   left: 0.5%
 }
@@ -234,7 +234,7 @@ th{
 .display-score{
   position: absolute;
   border-radius: 60%;
-  padding: 3%;
+  padding: 2%;
   top: 32%;
   left: 0.5%
 }
