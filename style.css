@@ -222,3 +222,19 @@ th{
   top: 15%;
   left: 0.5%
 }
+
+.counting-score{
+  background-color:grey;
+  width: 30%;
+  font-family: 'Courier New', Courier, monospace;
+ position: absolute;
+ left: 70%
+}
+
+.display-score{
+  position: absolute;
+  border-radius: 60%;
+  padding: 3%;
+  top: 32%;
+  left: 0.5%
+}

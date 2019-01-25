@@ -73,7 +73,7 @@ $(document).ready(function() {
     playCardPlayer();
 
     $(".help-button").click(function(){
-      $(".help").toggle()
+      $(".help").toggleClass("hide-score")
     })
   });
 });
@@ -128,13 +128,15 @@ function aiGame() {
     console.log("THERE ARE MOVES AVAILABLE");
 
     
-
+    
     //get card to play (for now play the one can get card)
     //find index card that can pick
 
     var cardToPlay = arrayMove.indexOf(
       arrayMove.filter(move => move.length > 0)[0]
     );
+   
+
 
     //show card before to play it
     $($(".hand-ai").children()[cardToPlay]).removeClass('ai-show-back')
@@ -266,6 +268,10 @@ function init() {
   player = new Player("player");
   //create AI player
   ai = new Computer("ai");
+
+  $(".display-score").click(function(){
+    $(".counting-score").toggleClass("hide-score")
+  })
 }
 
 function allowSelectCards() {
