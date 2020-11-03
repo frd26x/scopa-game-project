@@ -1,3 +1,4 @@
+import Player from "./Player"
 class Computer extends Player {
   constructor(
     name = "ai",
@@ -13,3 +14,5 @@ class Computer extends Player {
     super(name, hand, dealer, pickedCards, scoreCurrentGame, totalScore, sevenDiamonds,scopa);
   }
 }
+
+export default Computer

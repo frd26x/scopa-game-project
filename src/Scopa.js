@@ -10,10 +10,11 @@ class Scopa {
       i;
     while (m) {
       i = Math.floor(Math.random() * m--);
-      t = array[m];
-      array[m] = array[i];
-      array[i] = t;
+      t = shouffledArray[m];
+      shouffledArray[m] = shouffledArray[i];
+      shouffledArray[i] = t;
     }
+    return shouffledArray
   }
   giveCard(player) {
     player.hand.push(this.cards.pop());
@@ -98,3 +99,4 @@ return [{playerDiamonds:playerDiamonds, playerPrime:playerPrime},{aiDiamonds:aiD
 
 
 
+export default Scopa

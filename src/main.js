@@ -1,3 +1,14 @@
+import Player from "./Player"
+import Scopa from "./Scopa"
+import Computer from "./Ai"
+const defaultState = {
+  cards:[],
+  playerHand:[],
+  cpuHand:[],
+  playerPicks:[],
+  cpuPicks:[]
+}
+
 var cards = [
   { name: "1D", img: "1D.jpg", value: 1, prime: 16 },
   { name: "2D", img: "2D.jpg", value: 2, prime: 12 },
@@ -44,39 +55,40 @@ var cards = [
 var player;
 var game;
 var ai;
-$(document).ready(function() {
-  $(".start").click(function() {
-    init();
-    // setTimeout(giveCardPlayer,500)
+const startGame = function() {
+  init();
+  
+  // setTimeout(giveCardPlayer,500)
 
-    giveCardPlayer();
+  giveCardPlayer();
 
-    giveCardAI();
+  giveCardAI();
 
-    giveCardPlayer();
+  giveCardPlayer();
 
-    giveCardAI();
+  giveCardAI();
 
-    giveCardPlayer();
+  giveCardPlayer();
 
-    giveCardAI();
+  giveCardAI();
 
-    putCardsOnTable();
+  putCardsOnTable();
 
-    //on click option to select card on hand
-    allowSelectCards();
+  //on click option to select card on hand
+  allowSelectCards();
 
-    //on click option in order to pick cards from table
-    allowPickCards();
+  //on click option in order to pick cards from table
+  allowPickCards();
 
-    //play card the button
-    playCardPlayer();
+  //play card the button
+  playCardPlayer();
 
-    $(".help-button").click(function(){
-      $(".help").toggleClass("hide-score")
-    })
-  });
-});
+  $(".help-button").click(function(){
+    $(".help").toggleClass("hide-score")
+  })
+}
+const start = document.getElementById("start")
+start.addEventListener("click",startGame)
 
 function aiGame() {
   
@@ -259,7 +271,7 @@ function init() {
     html += "</div>";
   });
   html +=
-    '<div class="top-card-deck" data-card-name="images/bg.jpg" style="background: url(images/bg.jpg) no-repeat">';
+    `<div class="top-card-deck" data-card-name="images/bg.jpg" style="background: url('./images/bg.jpg') no-repeat">`;
 
   html += "</div>";
   //make the deck

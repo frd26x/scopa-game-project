@@ -9,6 +9,9 @@
   background-image: url("images/bg.jpg")
   
 }
+.img-cpu{
+  width: 100%;
+}
 
 .card-deck{
   width:50px;
@@ -33,15 +36,35 @@
   background-size: cover !important;
 }
 .ai-show-back{
-  background-image: url("/images/bg.jpg") !important;
+  background-image: url("./images/bg.jpg") !important;
 }
 
 .hand-ai{
   position: absolute;
   left:35%;
   bottom:80%;
-  width: 30%;
+  width: 40%;
+//  img{
+//   // content:url("./images/bg.jpg");
+//   // width: 100%;
+//  }
 }
+
+// .card {
+//   width: 100%;
+//   height: 100%;
+//   position: relative;
+//   transition: transform 1s;
+//   transform-style: preserve-3d;
+// }
+
+.float {
+  position: absolute;
+  transition: transform 0.5s linear;
+  transform: translateY(-150%);
+}
+
+
 .hand-player{
   position: absolute;
   left:30%;
@@ -108,6 +131,7 @@
   top: 40%;
   left: 30%;
   width: 50%;
+  /* background-image: url("./images/QS.jpg") !important; */
 }
 
 .card-played{
@@ -206,7 +230,9 @@ th{
   left: 70%;
   display: none;
 }
-
+.img{
+  width: 70px;
+}
 .help{
   background-color:grey;
   width: 30%;
@@ -238,3 +264,79 @@ th{
   top: 32%;
   left: 0.5%
 }
+
+
+
+
+
+
+
+
+$card-transition-time: 0.5s;
+
+.scene {
+  perspective: 600px;
+   position: relative;
+   
+   &.is-switched {
+      .card-cpu {
+         animation: rotate $card-transition-time linear both;
+      }
+   }
+}
+
+.card-cpu {
+  transform-style: preserve-3d;
+  animation: rotate-inverse $card-transition-time linear both;
+}
+
+.is-flipped {
+  // transform: rotateY(180deg)!important;
+}
+
+.card__face {
+  backface-visibility: hidden;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+
+  &.is-active {
+     position: static;
+  }
+}
+
+// .card__face--front {
+//   background: red;
+// }
+
+.card__face--back {
+  transform: rotateY(180deg);
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotateY(0);
+  }
+  70% {
+    transform: rotateY(200deg);
+  }
+  100% {
+    transform: rotateY(180deg);
+  }
+}
+
+@keyframes rotate-inverse {
+  0% {
+    transform: rotateY(180deg);
+  }
+  70% {
+    transform: rotateY(-20deg);
+  }
+  100% {
+    transform: rotateY(0);
+  }
+}
+
+
+

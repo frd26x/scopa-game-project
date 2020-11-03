@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <link rel="stylesheet" href="style.css">
+  <link type="css" rel="stylesheet" href="./style.css">
   <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
   <title>SCOPA</title>
 </head>
@@ -13,13 +13,13 @@
   <div class="deck">
     
   </div>
-<div class="hand-player"> <button class="play-card-button btn btn-danger">Play</button> </div>
-<div class="hand-ai"></div>
-<div class="table"></div>
-<div class="pick-player hide-score" style="background: url(images/bg.jpg) no-repeat"></div>
+<div id="playerHand"class="hand-player"> </div>
+<div id="cpuHand" class="hand-ai d-flex"></div>
+<div id="table" class="table" style="background: url('../assets/images/bg.jpg') no-repeat" ></div>
+<div class="pick-player hide-score" style="background: url('./images/bg.jpg') no-repeat"></div>
 <div class="pick-ai hide-score" style="background: url(images/bg.jpg) no-repeat"></div>
-<div class="card-played"></div>
-<button class="start btn btn-success">START</button>
+<!-- <div class="card-played"></div>
+<button id="start" class="start btn btn-success">START</button>
 <div class="scopa-alert">
   SCOPA +1pt
 </div>
@@ -109,20 +109,10 @@ King = 10
     obtained the highest  <strong>"prime"</strong>  <br> <br>
     captured all the cards on the table (=<strong>scopa</strong>)
 </div>
-
-
-
-<script
-  src="https://code.jquery.com/jquery-3.3.1.min.js"
-  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-  crossorigin="anonymous"></script>
- 
-
-  
-  
-   <script src="./src/main.js"></script>
-  <script src="./src/Player.js"></script>
+ -->
+   <script src="./bundle.js"></script>
+  <!-- <script src="./src/Player.js"></script>
   <script src="./src/Scopa.js"></script>
-  <script src="./src/Ai.js"></script>
+  <script src="./src/Ai.js"></script> -->
 </body>
 </html>

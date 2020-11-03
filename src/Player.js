@@ -186,3 +186,7 @@ console.log(availablePicks)
 
   }
 }
+
+export default Player
+
+const vvf = 'dsfdsf'

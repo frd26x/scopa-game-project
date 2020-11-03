@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link type="css" rel="stylesheet" href="style.css">
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+  <title>SCOPA</title>
+</head>
+<body>
+
+  <div class="deck">
+    
+  </div>
+<div class="hand-player "data-aos="flip-left"> <button class="play-card-button btn btn-danger">Play</button> </div>
+<div class="hand-ai"></div>
+<div class="table" style="background: url('../assets/images/bg.jpg') no-repeat" ></div>
+<div class="pick-player hide-score" style="background: url('./images/bg.jpg') no-repeat"></div>
+<div class="pick-ai hide-score" style="background: url(images/bg.jpg) no-repeat"></div>
+<div class="card-played"></div>
+<button id="start" class="start btn btn-success">START</button>
+<div class="scopa-alert">
+  SCOPA +1pt
+</div>
+<button class="display-score btn btn-info">SCORE</button>
+
+<table class="display-scores hide-score">
+	<tr>
+		<th id="score-name"></th>
+		<th id="player-name-score">Player</th>
+		<th id="ai-name-score">Cpu  </th>
+	</tr>
+	<tr>
+		<td headers="score-name">Score</td>
+		<td id="player-score" headers="player-name-score">4</td>
+		<td id="ai-score" headers="ai-name-score">2</td>
+  </tr>
+  <tr>
+		<td headers="score-name">Scopa</td>
+		<td id="scopa-player" headers="player-name-score">1</td>
+		<td id="scopa-ai" headers="ai-name-score">1</td>
+  </tr>
+  <tr>
+		<td  headers="score-name">Cards</td>
+		<td id="cards-player" headers="player-name-score">24</td>
+		<td id="cards-ai" headers="ai-name-score">16</td>
+  </tr>
+  <tr>
+		<td headers="score-name">Diamonds</td>
+		<td id="diamonds-player" headers="player-name-score">4</td>
+		<td id="diamonds-ai" headers="ai-name-score">6</td>
+  </tr>
+  <tr>
+		<td headers="score-name">7 of Diamonds</td>
+		<td id="7ofDiamonds-player" headers="player-name-score">yes</td>
+		<td id="7ofDiamonds-ai" headers="ai-name-score"></td>
+  </tr>
+  <tr>
+		<td headers="score-name">Prime</td>
+		<td id="prime-player" headers="player-name-score">65</td>
+		<td id="prime-ai" headers="ai-name-score">76</td>
+  </tr>
+  <tr>
+		<td headers="score-name">Overall score</td>
+		<td id="overallScore-player" headers="player-name-score">15</td>
+		<td id="overallScore-ai" headers="ai-name-score">18</td>
+	</tr>
+</table>
+
+<div class="alert-move">
+  You can't add a card on the table if on the <br> table there is a combination that sum up to the value of the card
+</div>
+<button class="help-button btn btn-info">HELP</button>
+<div class="help hide-score">
+ <strong>PRIME VALUE</strong>  <br>
+Seven  = 21 points <br>
+Six  = 18 points<br>
+Ace  = 16 points<br>
+Five  = 15 points<br>
+Four  = 14 points<br>
+Three  = 13 points<br>
+Two  = 12 points<br>
+Face cards = 10 points <br>
+<br>
+<br>
+<br>
+
+<strong>CARDS VALUE</strong>  <br>
+Ace = 1 <br>
+Two = 2 <br>
+Three = 3 <br>
+Four = 4 <br>
+Five = 5 <br>
+Six = 6 <br>
+Seven = 7 <br>
+Jack = 8 <br>
+Queen = 9 <br>
+King = 10
+
+</div>
+
+<div class="counting-score hide-score">
+   <strong>COUNTING SCORE</strong> <br><br>
+   You get <strong>1 point</strong>  if: <br><br>
+    captured the greatest number of <strong>cards</strong>. <br> <br>
+    captured the greatest number of cards in the suit of <strong>diamonds</strong> . <br> <br>
+    captured the <strong>seven of diamonds</strong>  <br><br>
+    obtained the highest  <strong>"prime"</strong>  <br> <br>
+    captured all the cards on the table (=<strong>scopa</strong>)
+</div>
+
+
+
+<script
+  src="https://code.jquery.com/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous"></script>
+ 
+
+  
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>
+    AOS.init();
+  </script>
+
+   <script src="./bundle.js"></script>
+  <!-- <script src="./src/Player.js"></script>
+  <script src="./src/Scopa.js"></script>
+  <script src="./src/Ai.js"></script> -->
+</body>
+</html>
